@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election Commission Of Tamil Nadu</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            text-decoration: none;
+            list-style: none;
+            box-sizing: border-box;
+        }
+        nav{
+            background: white;
+            height: 80px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        label.logo img {
+            height: 50px;
+            width: auto;
+        }
+        
+        
+        label.logo{
+            color:black;
+            font-size: 35px;
+            line-height: 80px;
+            padding: 0 100px;
+            font-weight: bold;
+        }
+        nav ul{
+            float: right;
+            margin-right: 20px;
+        }
+        nav ul li{
+            display: inline-block;
+            line-height: 80px;
+            margin: 0 5px;
+        }
+        nav ul li a{
+            color:black;
+            font-size: 17px;
+            padding: 7px 13px;
+            border-radius: 3px;
+            text-transform: uppercase;
+        }
+        a.active,a:hover{
+            background: #1b9bff;
+            transition: .5s;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            
+        }
+
+        header {
+            background-color: white;
+            color: black;
+            text-align: left;
+            padding: 20px;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        section {
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input, select, textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="date"] {
+            padding: 10px 12px;
+        }
+
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .flex-container > div {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .personal-details-header {
+            text-align: left;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .light-box {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .gender-radio {
+            display: flex;
+            align-items: center;
+        }
+
+        .gender-radio label {
+            margin-right: 20px;
+        }
+
+        .gender-radio input {
+            margin-right: 5px;
+        }
+
+    
+
+        table {
+            width: 40%;
+            height: 550px;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid darkgray;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color:midnightblue ;
+            color: white;
+        }
+
+        label.required::after {
+            content: '*';
+            color: red;
+        }
+
+        #main-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between; /* Adjust the spacing between the buttons and the image */
+        align-items: center; /* Center items vertically */
+        padding: 20px; /* Add some padding to the main container */
+    }
+
+        .bottom-container {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            border-radius: 8px 8px 0 0;
+        }
+        #buttons-container {
+        max-width: 600px;
+        text-align: left;
+        margin-bottom: 75px; /* Adjust the margin to be equal or greater than the height of the footer */
+    }
+        .button {
+            display: block;
+            margin-bottom: 10px;
+            padding: 35px; /* Adjust the padding for a larger button */
+            background-color: #2c3968;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 10px; /* Adjust the border-radius for a rounded appearance */
+            cursor: pointer;
+            text-align: center;
+            font-weight: 1000;
+        }
+
+        .button:hover {
+            background-color:#5D76A9;
+        }
+
+        #bottom-div {
+          background:#041E42;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            width: calc(100% - 40px); 
+        }
+
+        .qr-timer-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .qr-code {
+            max-width: 100px;
+            max-height: 100px;
+            margin-right: 20px;
+        }
+
+        #timer, #direction {
+            flex: 1;
+        }
+
+        #countdown {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        #direction a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        #direction a:hover {
+            text-decoration: underline;
+        }
+        footer {
+        position: relative; /* Change position to relative */
+        background-color: #041E42;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        border-radius: 1px;
+        margin-top: 150px;
+        margin-left: 5px; /* Add a margin at the top to separate from the content */
+    }
+
+ 
+
+
+.mySlides {
+    display: none;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+.a{
+    background-color: white;
+}
+#main-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        #buttons-container {
+            max-width: 50%;
+            text-align: left;
+            margin-bottom: 75px;
+        }
+
+        .map-container {
+            flex: 1;
+        }
+
+        /* Add the following styles to center the contact details */
+        #contact-details {
+            text-align: center;
+        }
+
+        #contact-details table {
+            margin: 0 auto;
+        }
+        .contact-container {
+            background-color: #f9f9f9; /* Background color of the box */
+            padding: 10px; /* Padding inside the box */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            width: 20%; /* Adjust the width based on your layout */
+            margin-left: 5%; /* Add some margin between the slideshow and contact details */
+            display: inline-block;
+        }
+
+        .contact-container h3 {
+            color: #333; /* Text color of the heading */
+        }
+
+        .contact-container p {
+            margin-top: 0;
+            color: #555; /* Text color of the content */
+        }
+        
+    </style>
+</head>
+<body>
+    <nav>
+        <label class="logo">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST_DbRVDw0kkrIWPCoT9ZfCnhalRQKrHEdyXsmUoI5FMm6gFiYRTpkG3SoZrnYH5N9rD4&usqp=CAU" alt="Logo">Election Commission of TamilNadu
+        </label>
+        <ul>
+            <li style="list-style: none;"><a href="act.html">Home</a></li>
+            <li style="list-style: none;"><a href="About.htm">About us</a></li>
+            <li style="list-style: none;"><a href="contact.htm">Contact</a></li>
+            <li style="list-style: none;"><a href="blog.htm">Blog</a></li>
+            <li style="list-style: none;"><a href="faq.htm">FAQ</a></li>
+        </ul>
+    </nav>
+    <main>
+        
+    <div class="slideshow-container scroll-image-section" >
+        
+        <div class="mySlides">
+            <img src="https://pbs.twimg.com/media/F7AIHwtagAAZKUi?format=jpg&name=small"style="height: 450px;" alt="Image E">
+        </div>
+        <div class="mySlides">
+            <img src="https://pbs.twimg.com/media/F66--IQbEAAwDs-?format=jpg&name=small" style="height: 450px;" alt="Image A">
+        </div>
+        <div class="mySlides"><img src="https://pbs.twimg.com/media/F26UdyGbQAAwE3Y?format=jpg&name=small" style="height: 450px;" alt="Image F">
+        </div>
+        
+        <div class="mySlides">
+            <img src="https://pbs.twimg.com/media/F123VgmaQAMZPsV?format=jpg&name=small"style="height: 450px;" alt="Image C">
+        </div>
+        <div class="mySlides">
+            <img src="https://pbs.twimg.com/media/F2hha9vacAEbLyp?format=jpg&name=small"style="height: 450px;" alt="Image C">
+        </div>
+    
+    </div>
+
+</main>
+<div id="main-container">
+        &emsp;&emsp;&emsp;&emsp;
+        <div class="map-container">
+            <img src="https://s3.amazonaws.com/cdn.freshdesk.com/data/helpdesk/attachments/production/62000420478/original/Zrwvzq5oIZostqm2bizj5eUsFg4s39mn4g.png?1587482406" style="float: left; height: 600px; width: 400px;">
+        </div>
+        <?php
+        $host = "localhost"; // Replace with your PostgreSQL host
+        $port = "5433"; // Replace with your PostgreSQL port
+        $dbname = "election_commission_tamilnadu"; // Replace with your PostgreSQL database name
+        $user = "postgres"; // Replace with your PostgreSQL username
+        $password = "postgres"; // Replace with your PostgreSQL password
+        
+        // Establish a connection to PostgreSQL
+        $pdo = new PDO("pgsql:host=$host;port=$port;dbname=$dbname;user=$user;password=$password");
+        
+        // Fetch data from the 'official' table
+        $query = $pdo->query("SELECT * FROM official");
+        $data = $query->fetchAll(PDO::FETCH_ASSOC);
+        ?>
+        
+        <table border="1" id="contact-details">
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+            </tr>
+        
+            <?php foreach ($data as $row): ?>
+                <tr>
+                    <td><?php echo $row['name']; ?></td>
+                    <td><?php echo $row['position']; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+        
+        
+    </div>
+    
+   
+    <footer>
+        <a target="_blank" href="https://play.google.com/store/apps/details?id=in.nic.eci.cvigil&hl=en_IN" title="cVIGIL">
+        <img src="https://www.elections.tn.gov.in/Content/images/b.png" style="height: 100px; width: 200px;" alt="Image A"></a>&emsp;&emsp;&emsp;&emsp;
+        <a target="_blank" href="https://play.google.com/store/apps/details?id=com.eci.citizen&hl=en_IN" title="Voter Helpline">
+            <img src="https://www.elections.tn.gov.in/Content/images/f.png" style="height: 100px;width: 200px;" alt="Image F"></a>&emsp;&emsp;&emsp;&emsp;
+
+            <a target="_blank" href="https://eci.gov.in/" title="Election Commission of India">
+            <img src="https://www.elections.tn.gov.in/Content/images/c.png" style="height: 100px;width: 200px;" alt="Image C"></a>&emsp;&emsp;&emsp;&emsp;
+            <a target="_blank" href="https://ecisveep.nic.in/" title="SVEEP">
+            <img src="https://www.elections.tn.gov.in/Content/images/e.png"style="height: 100px;width: 200px;" alt="Image E"></a>
+      <div id="bottom-div">
+        <div class="qr-timer-container">
+            <!-- QR code image -->
+            <div id="timer">
+                <p>Scan to download voter helpline</p>
+                <img src="https://eci.gov.in/uploads/monthly_2019_01/frame.png.26c1e19c63f59899a2e937fff764ce0f.png" alt="QR Code" class="qr-code">
+            </div>
+            <!-- Timer for upcoming election -->
+            <div id="timer">
+              <p>Upcoming Election</p>
+              <p id="countdown"></p>
+            </div>
+  
+            <!-- Direction to main website -->
+            <div id="direction">
+                <p>Visit our main website</p>
+                <a href="https://eci.gov.in/" target="_blank">Election Commission of India</a><br><br>
+            </div>
+            
+        </div>
+        &copy; 2023  Election Commission of Tamil Nadu. All rights reserved.
+    </div>
+
+    </footer>
+</body>
+
+
+<script>
+    // Set the date we're counting down to
+    var countDownDate = new Date("Apr 1, 2026 00:00:00").getTime();
+    
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+    
+      // Get today's date and time
+      var now = new Date().getTime();
+        
+      // Find the distance between now and the count down date
+      var distance = countDownDate - now;
+        
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+      // Output the result in an element with id="demo"
+      document.getElementById("countdown").innerHTML = days + "d " + hours + "h "
+      + minutes + "m " + seconds + "s ";
+        
+      // If the count down is over, write some text 
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("countdown").innerHTML = "EXPIRED";
+      }
+    }, 1000);
+
+    let slideIndex = 0;
+
+function showSlides() {
+    let i;
+    const slides = document.getElementsByClassName("mySlides");
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {
+        slideIndex = 1;
+    }
+    slides[slideIndex - 1].style.display = "block";
+    setTimeout(showSlides, 5000); // Change slide every 5 seconds
+}
+
+// Initial call to start the slideshow
+showSlides();
+
+    </script>
+
+</html>
+

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Election</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@300&display=swap");
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Cairo', sans-serif;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+      background: #dcd9cd;
+    }
+    ul {
+      position: relative;
+      z-index: 1;
+    }
+    ul li {
+      list-style: none;
+      text-align: center;
+    }
+    ul li a {
+      color: #333;
+      text-decoration: none;
+      font-size: 3em;
+      padding: 5px 20px;
+      display: inline-flex;
+      font-weight: 700;
+      transition: 0.5s;
+      position: relative;
+      z-index: 1;
+    }
+    ul:hover li a {
+      color:#dcd9cd;
+    }
+    ul li:hover a {
+      color:#dcd9cd;
+      background: transparent;
+    }
+    ul li a:before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
+  opacity: 0;
+  width: 100vw;
+  height: 100vh;
+  transition: opacity 0.5s;
+  background-size: 100% 100%; /* Ensure the background image covers the entire container */
+  background-repeat: no-repeat;
+  background-position: center;
+  pointer-events: none;
+}
+
+    ul li a:hover:before {
+      opacity: 0.2;
+    }
+    ul li:nth-child(1) a:before {
+      background-image: url('https://paytmblogcdn.paytm.com/wp-content/uploads/2022/08/Blog-Voter-ID-Documents_Cover-banner_Final-800x500.png');
+    }
+    ul li:nth-child(3) a:before {
+      background-image: url('https://static.toiimg.com/thumb/msid-109374673,width-1280,height-720,resizemode-4/109374673.jpg');
+    }
+    ul li:nth-child(5) a:before {
+      background-image: url('https://cdn.downtoearth.org.in/library/large/2019-05-28/0.07332900_1559045191_gettyimages-1140522050.jpg');
+    }
+    ul li:nth-child(7) a:before {
+      background-image: url('https://media.geeksforgeeks.org/wp-content/uploads/20240315110738/List-of-CM-OF-Tamil-Nadu-copy-(1).webp');
+    }
+    ul li:nth-child(9) a:before {
+      background-image: url('https://www.india.com/wp-content/uploads/2023/11/Babulal-Gaur-CM.jpg');
+    }
+    ul li:nth-child(11) a:before {
+      background-image: url('https://etvbharatimages.akamaized.net/etvbharat/prod-images/768-512-10848595-thumbnail-3x2-tamilnadu-parties.jpg');
+    }
+    ul li:nth-child(13) a:before {
+      background-image: url('https://assets.thehansindia.com/h-upload/2024/03/16/1430825-election.webp');
+    }
+    header {
+      background-color: #041E42;
+      color: white;
+      text-align: center;
+      padding: 1em;
+    }
+    h1 {
+      margin: 0;
+    }
+
+.button-56 {
+  align-items: center;
+  background-color:#0f2d57;
+  border: 2px solid #111;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color:#dcd9cd;
+  cursor: pointer;
+  display: flex;
+  font-family: Inter,sans-serif;
+  font-size: 16px;
+  height: 48px;
+  justify-content: center;
+  line-height: 24px;
+  max-width: 100%;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-56:after {
+  background-color:#041E42;
+  border-radius: 8px;
+  content: "";
+  display: block;
+  height: 48px;
+  left: 0;
+  width: 100%;
+  position: absolute;
+  top: -2px;
+  transform: translate(8px, 8px);
+  transition: transform .2s ease-out;
+  z-index: -1;
+}
+
+.button-56:hover:after {
+  transform: translate(0, 0);
+}
+
+.button-56:active {
+  background-color:#dcd9cd;
+  outline: 0;
+}
+
+.button-56:hover {
+  outline: 0;
+}
+
+@media only screen and (min-width: 768px) {
+      ul li a {
+        font-size: 18px;
+        padding: 15px 30px;
+      }
+}
+  </style>
+</head>
+<body>
+
+
+
+<ul>
+  <li><a href="registration.php" class="button-56" role="button">Register for voter ID</a></li><br>
+  <li><a href="search.php" class="button-56" role="button">Search your name in voter list</a></li><br>
+  <li><a href="poll.php" class="button-56" role="button">Polling Section</a></li><br>
+  <li><a href="list.htm" class="button-56" role="button">Previous CM list</a></li><br>
+  <li><a href="results.php" class="button-56" role="button">Result</a></li><br>
+  <li><a href="party.php" class="button-56" role="button">Parties</a></li><br>
+  <li><a href="searchcandi.htm" class="button-56" role="button">Candidates List</a></li><br>
+  <li><a href="index.php" class="button-56" role="button">Back to main-menu</a></li>
+</ul>
+
+</body>
+</html>

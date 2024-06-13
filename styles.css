@@ -1,0 +1,408 @@
+/* General Styles */
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Navigation Bar */
+nav {
+    background: white;
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+label.logo img {
+    height: 50px;
+    width: auto;
+}
+
+label.logo {
+    color: black;
+    font-size: 30px;
+    line-height: 80px;
+    padding: 0 20px;
+    font-weight: bold;
+}
+
+nav ul {
+    display: flex;
+    align-items: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: black;
+    font-size: 17px;
+    padding: 10px 20px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    transition: background 0.3s, color 0.3s;
+}
+
+a.active,
+a:hover {
+    background: #1b9bff;
+    color: white;
+}
+
+/* Header */
+header {
+    background-color: #041E42;
+    color: white;
+    text-align: center;
+    padding: 1em;
+}
+
+/* Main Content */
+main {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+section {
+    background-color: #f9f9f9;
+    padding: 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: #555;
+    font-weight: bold;
+}
+
+input,
+select,
+textarea {
+    width: calc(100% - 20px);
+    padding: 12px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+input[type="date"] {
+    padding: 12px 15px;
+}
+
+/* Flex Container */
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.flex-container > div {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.personal-details-header {
+    text-align: left;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.light-box {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.gender-radio {
+    display: flex;
+    align-items: center;
+}
+
+.gender-radio label {
+    margin-right: 20px;
+}
+
+.gender-radio input {
+    margin-right: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+}
+
+th,
+td {
+    border: 1px solid darkgray;
+    padding: 15px;
+    text-align: left;
+    font-size: 16px;
+}
+
+th {
+    background-color: midnightblue;
+    color: white;
+}
+
+label.required::after {
+    content: '*';
+    color: red;
+}
+
+/* Main Container */
+#main-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+}
+
+/* Bottom Container */
+.bottom-container {
+    text-align: center;
+    padding: 30px;
+    background-color: #333;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+}
+
+#buttons-container {
+    max-width: 600px;
+    text-align: left;
+    margin-bottom: 100px;
+}
+
+.button {
+    display: block;
+    margin-bottom: 15px;
+    padding: 15px 20px;
+    background-color: #2c3968;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 18px;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.button:hover {
+    background-color: #5D76A9;
+    transform: translateY(-3px);
+}
+
+#bottom-div {
+    background: #041E42;
+    padding: 30px;
+    color: white;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: calc(100% - 60px);
+    border-radius: 10px;
+}
+
+.qr-timer-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.qr-code {
+    max-width: 100px;
+    max-height: 100px;
+    margin-right: 20px;
+}
+
+#timer,
+#direction {
+    flex: 1;
+}
+
+#countdown {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#direction a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#direction a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    background-color: #041E42;
+    color: white;
+    text-align: center;
+    padding: 30px;
+    margin-top: 50px;
+}
+
+.mySlides {
+    display: none;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+.a {
+    background-color: white;
+}
+
+#main-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+}
+
+#buttons-container {
+    max-width: 50%;
+    text-align: left;
+    margin-bottom: 75px;
+}
+
+.map-container {
+    flex: 1;
+}
+
+#contact-details {
+    text-align: center;
+}
+
+#contact-details table {
+    margin: 0 auto;
+}
+
+.contact-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin-top: 30px;
+    display: inline-block;
+}
+
+.contact-container h3 {
+    color: #333;
+    font-size: 24px;
+}
+
+.contact-container p {
+    margin-top: 0;
+    color: #555;
+    font-size: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+    }
+
+    label.logo {
+        padding: 0;
+        text-align: center;
+    }
+
+    nav ul {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        flex-direction: column;
+    }
+
+    nav ul li {
+        display: block;
+        margin: 5px 0;
+    }
+
+    .flex-container {
+        flex-direction: column;
+    }
+
+    .flex-container > div {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .bottom-container {
+        position: relative;
+        bottom: auto;
+        width: 100%;
+        margin-top: 20px;
+        padding: 20px;
+    }
+
+    #buttons-container {
+        max-width: 100%;
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .contact-container {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .map-container img {
+        width: 100%;
+        height: auto;
+    }
+
+    .qr-timer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .qr-code {
+        margin: 10px 0;
+    }
+}

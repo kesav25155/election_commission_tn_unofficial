@@ -1,0 +1,620 @@
+<style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: url('https://thumbs.gfycat.com/BackImperfectHookersealion-max-1mb.gif') no-repeat center center fixed;
+        background-size: cover;
+        color: #333;
+    }
+
+    header {
+        background-color: #041E42;
+        color: white;
+        text-align: center;
+        padding: 1em;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2em;
+    }
+
+    .plan {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .pay-button {
+        display: inline-block;
+        background-color: cornflowerblue;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-top: 10px;
+        transition: background-color 0.3s;
+    }
+
+    .pay-button:hover {
+        background-color: midnightblue;
+    }
+
+    .error-message {
+        color: red;
+    }
+
+    /* Candidate search form */
+    #searchForm {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    #searchTerm {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 100%;
+        max-width: 400px;
+        margin-right: 10px;
+    }
+
+    /* Candidate search results */
+    #searchResults {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 20px;
+    }
+
+    #searchResults li {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-bottom: 5px;
+    }
+
+    #searchResults li:hover {
+        background-color: #f0f0f0;
+    }
+
+    /* Candidate details */
+    #candidateDetails ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    #candidateDetails ul li {
+        margin-bottom: 5px;
+    }
+
+
+
+            h1 {
+                flex-grow: 1; /* Let the h1 element grow to take available space */
+                text-align: center; /* Align the text to the left within the h1 element */
+            }
+
+            .small-button {
+                margin-right: 10px; /* Adjust as needed */
+            }
+
+            .small-button {
+                display: inline-block;
+                padding: 8px 15px;
+                background-color: #ddd;
+                color: #333;
+                font-size: 14px;
+                border-radius: 5px;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+            .small-button:hover {
+                background-color: #ccc;
+            }
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f4;
+                color: #333;
+            }
+
+            header {
+                background-color: #041E42;
+                color: white;
+                text-align: center;
+                padding: 20px;
+                display: flex;
+                justify-content: space-between; /* Align items to the start and end */
+                align-items: center;
+            }
+
+            main {
+                max-width: 1200px;
+                margin: 20px auto;
+                padding: 20px;
+                background-color: white;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+            }
+
+            section {
+                background-color: #f9f9f9;
+                padding: 20px;
+                margin-bottom: 20px;
+                border-radius: 8px;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 8px;
+                color: #555;
+            }
+
+            input, select, textarea {
+                width: calc(100% - 20px);
+                padding: 10px;
+                margin-bottom: 16px;
+                box-sizing: border-box;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            input[type="date"] {
+                padding: 10px 12px;
+            }
+
+            .flex-container {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 20px;
+            }
+
+            .flex-container > div {
+                flex: 1;
+                margin-right: 10px;
+            }
+
+            .personal-details-header {
+                text-align: left;
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 20px;
+                color: #333;
+            }
+
+            .light-box {
+                background-color: #fff;
+                border: 1px solid #ddd;
+                padding: 15px;
+                border-radius: 8px;
+                margin-bottom: 20px;
+            }
+
+            .gender-radio {
+                display: flex;
+                align-items: center;
+            }
+
+            .gender-radio label {
+                margin-right: 20px;
+            }
+
+            .gender-radio input {
+                margin-right: 5px;
+            }
+
+            button {
+                background-color: #4caf50;
+                color: white;
+                padding: 12px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                text-align: center;
+                display: block;
+                margin: 0 auto;
+            }
+
+            button:hover {
+                background-color: #45a049;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+
+            th, td {
+                border: 1px solid #ddd;
+                padding: 12px;
+                text-align: left;
+            }
+
+            th {
+                background-color: #4caf50;
+                color: white;
+            }
+
+            label.required::after {
+                content: '*';
+                color: red;
+            }
+            .marquee-container {
+                overflow: hidden;
+            }
+
+            .scroll-item {
+                position: relative;
+                display: inline-block;
+                margin-right: 20px; /* Adjust the spacing between images */
+            }
+
+            .image-name {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                color: white;
+                padding: 5px;
+                text-align: center;
+            }
+            #main-container {
+            display: flex;
+            justify-content: space-between; /* Adjust the spacing between the buttons and the image */
+            align-items: center; /* Center items vertically */
+            padding: 20px; /* Add some padding to the main container */
+        }
+
+            .bottom-container {
+                text-align: center;
+                padding: 20px;
+                background-color: #333;
+                color: white;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                border-radius: 8px 8px 0 0;
+            }
+            #buttons-container {
+                max-width: 600px; /* Adjust the max-width as needed */
+                text-align: left; /* Center the buttons */
+            }
+            .button {
+                display: block;
+                margin-bottom: 10px;
+                padding: 35px; /* Adjust the padding for a larger button */
+                background-color: rgb(135, 133, 133);
+                color: #333;
+                text-decoration: none;
+                font-weight: bold;
+                border-radius: 10px; /* Adjust the border-radius for a rounded appearance */
+                cursor: pointer;
+                text-align: center;
+                font-weight: 1000;
+            }
+
+            .button:hover {
+                background-color:darkgrey;
+            }
+
+            #bottom-div {
+              background: gray;
+                padding: 20px;
+                color: white;
+                text-align: center;
+                position: absolute;
+                bottom: 0;
+                width: calc(100% - 40px); 
+            }
+
+            .qr-timer-container {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .qr-code {
+                max-width: 100px;
+                max-height: 100px;
+                margin-right: 20px;
+            }
+
+            #timer, #direction {
+                flex: 1;
+            }
+
+            #countdown {
+                font-size: 18px;
+                font-weight: bold;
+                margin-top: 10px;
+            }
+            #direction a {
+                color: white;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+            #direction a:hover {
+                text-decoration: underline;
+            }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: url('https://thumbs.gfycat.com/BackImperfectHookersealion-max-1mb.gif') no-repeat center center fixed;
+        background-size: cover;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        background-color: #041E42;
+        color: white;
+        text-align: center;
+        padding: 1em;
+        display: flex;
+        justify-content: space-between; /* Align items to the start and end */
+        align-items: center;
+    }
+
+    header a {
+        margin-right: 10px; /* Adjust spacing between Home button and logo */
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+    }
+
+    h1 {
+        text-align: center;
+        margin: 20px 0;
+        font-size: 1.5em;
+    }
+
+    .marquee-container {
+        overflow: hidden;
+        white-space: nowrap; /* Prevent wrapping of marquee content */
+    }
+
+    .scroll-item {
+        display: inline-block;
+        margin-right: 20px; /* Adjust spacing between images */
+        vertical-align: middle; /* Align items vertically in the container */
+    }
+
+    .scroll-item img {
+        width: 150px; /* Adjust image size */
+        height: 150px;
+        border-radius: 50%; /* Make images circular */
+    }
+
+    .image-name {
+        text-align: center;
+        padding: 5px 0;
+        font-size: 0.8em;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+        .scroll-item {
+            margin-right: 10px; /* Reduce spacing between images */
+        }
+    }
+
+    @media (max-width: 768px) {
+        header {
+            flex-direction: column; /* Stack header items vertically on smaller screens */
+            align-items: flex-start; /* Align items to the start */
+        }
+
+        header a {
+            margin-right: 0; /* Remove margin for Home button */
+            margin-bottom: 10px; /* Add margin below Home button */
+        }
+
+        h1 {
+            font-size: 1.2em; /* Decrease font size of h1 */
+        }
+
+        .scroll-item img {
+            width: 120px; /* Decrease image size */
+            height: 120px;
+        }
+
+        .image-name {
+            font-size: 0.7em; /* Decrease font size of image name */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .scroll-item img {
+            width: 100px; /* Further decrease image size */
+            height: 100px;
+        }
+
+        .image-name {
+            font-size: 0.6em; /* Further decrease font size of image name */
+        }
+    }
+</style>
+
+</head>
+<body>
+  <header>
+    <a href="index.php" class="small-button">Home</a>
+    <h1>Election Commission of Tamil Nadu</h1>
+</header>
+<br>
+<h1>List Of Chief Ministers</h1>
+<br>
+        <div class="marquee-container">
+            <marquee behavior="scroll" direction="left" scrollamount="20">
+                
+                <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/1920_subbarayalu.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Thiru A Subbarayalu</div>
+                  </div>
+                  
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/1921_panagalraja.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Thiru Panagal Raja</div>
+                  </div>
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/1926_subbarayan.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Dr. P Subbarayan</div>
+                  </div>
+                  
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/1930_munuswamynaidu.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Thiru P Munuswamy Naidu</div>
+                  </div>
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/1932_rajabobbili.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Thiru Ramakrishna Ranga Rao,Raja of Bobbili</div>
+                  </div>
+                  
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/1936_rajan.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Thiru P T Rajan</div>
+                  </div>
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/1932_rajabobbili.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Thiru Ramakrishna Ranga Rao,Raja of Bobbili</div>
+                  </div>
+                  
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/1937_kurmavenkatareddynaidu.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Thiru Kurma Venkata Reddy Naidu</div>
+                  </div>
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/1937_rajagopalachari.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Thiru C Rajagopalachari</div>
+                  </div>
+                  
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/1946_tanguturiprakasam.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Thiru Tanguturi Prakasam</div>
+                  </div>
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/1947_oprameswamyreddiyar.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Thiru O P Ramaswamy Reddiyar</div>
+                  </div>
+                  
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/1949_ps_kumaraswamyraja.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Thiru P S Kumaraswamy Raja</div>
+                  </div>
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/1937_rajagopalachari.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Thiru C Rajagopalachari</div>
+                  </div>
+                  
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/1954_kamaraj.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Thiru K Kamaraj</div>
+                  </div>
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/1963_bakthavatsalam.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Thiru M Bakthavatsalam</div>
+                  </div>
+                  
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/1967_annadurai.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Dr. C.N. Annadurai</div>
+                  </div>
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/1969_drkalaignar.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Dr. Kalaignar M Karunanidhi</div>
+                  </div>
+                  
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/1977_drmgr.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Dr. M G Ramachandran</div>
+                  </div>
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/1988_janakiramachandran.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">V.N.Janaki</div>
+                  </div>
+                  
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/1989_drkalaignar.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Dr. Kalaignar M Karunanidhi</div>
+                  </div>
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/1991_selvi_jayalalitha.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Dr. Selvi J Jayalalithaa</div>
+                  </div>
+                  
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/1996_drkalaignar.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Dr. Kalaignar M Karunanidhi</div>
+                  </div>
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/2001_selvi_jayalalitha.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Dr. Selvi J Jayalalithaa</div>
+                  </div>
+                  
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/2001_ops.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Thiru O. Panneerselvam</div>
+                  </div>
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/2001_selvi_jayalalitha.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Dr. Selvi J Jayalalithaa</div>
+                  </div>
+                  
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/2006_drkalaignar.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Dr. Kalaignar M Karunanidhi</div>
+                  </div>
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/2001_selvi_jayalalitha.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Dr. Selvi J Jayalalithaa</div>
+                  </div>
+                  
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/2001_ops.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Thiru O. Panneerselvam</div>
+                  </div>
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/2001_selvi_jayalalitha.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Dr. Selvi J Jayalalithaa</div>
+                  </div>
+                  
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/2014_ops.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Thiru O. Panneerselvam</div>
+                  </div>
+                  <div class="scroll-item">
+                    <img src="https://assembly.tn.gov.in/history/images/cm/2017_eps.jpg" width="250" height="250" alt="Natural">
+                    <div class="image-name">Thiru Edappadi K. Palaniswami</div>
+                  </div>
+                  
+                  <div class="scroll-item">
+                    <img src="data:image/jpeg;base64,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" width="250" height="250" alt="Natural">
+                    <div class="image-name">M. K. Stalin</div>
+                  </div>
+            </marquee>
+        </div>
+</body>
+</html>

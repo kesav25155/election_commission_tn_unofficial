@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Election Commission of Tamil Nadu</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+                header {
+            background-color: #041E42;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between; /* Align items to the start and end */
+            align-items: center;
+        }
+
+        h1 {
+            flex-grow: 1; /* Let the h1 element grow to take available space */
+            text-align: center; /* Align the text to the left within the h1 element */
+        }
+
+        .small-button {
+            margin-right: 10px; /* Adjust as needed */
+        }
+
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .faq-section {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .faq-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .faq-question {
+            background-color:#041E42;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .faq-answer {
+            padding: 10px;
+            display: none;
+        }
+
+        .faq-item.open .faq-answer {
+            display: block;
+            background-color: #f2f2f2;
+        }
+
+        .small-button {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #ddd;
+            color: #333;
+            font-size: 14px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .small-button:hover {
+            background-color: #ccc;
+        }
+        @media screen and (max-width: 768px) {
+            .container {
+                max-width: 100%;
+                padding: 10px;
+            }
+
+            .contact-details {
+                padding: 10px;
+            }
+
+            header {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="index.php" class="small-button">Home</a>
+        <h1>Election Commission of Tamil Nadu</h1>
+    </header>
+
+    <div class="container">
+        <h1>FAQ - Frequently Asked Questions</h1>
+        <br>
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <div class="faq-item">
+                <div class="faq-question">Q: What are the eligibility criteria for voter registration?</div>
+                <div class="faq-answer">A: To be eligible for voter registration, an individual must be a citizen of India
+                    and at least 18 years old as of January 1 of the year in which the electoral roll is being
+                    revised.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q: How can I check my voter registration status online?</div>
+                <div class="faq-answer">A: You can check your voter registration status online by visiting the official
+                    website of the Election Commission and using the voter status check tool. Enter your details to
+                    view your current registration status.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q: What documents are required for voter registration?</div>
+                <div class="faq-answer">A: The documents required for voter registration include proof of identity (such
+                    as Aadhar card, passport, or driver's license) and proof of residence (such as utility bills or
+                    rent agreement).</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q: How can I find my polling booth location?</div>
+                <div class="faq-answer">A: You can find your polling booth location by checking your voter ID card or by
+                    using the online polling booth locator tool provided by the Election Commission. Enter your
+                    details to get information about your assigned polling booth.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q: What should I do if I find an error in my voter ID card?</div>
+                <div class="faq-answer">A: If you find an error in your voter ID card, you should contact the local
+                    election office immediately. They will provide guidance on the necessary steps to correct the
+                    error, which may include submitting a correction form along with supporting documents.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to toggle the open class for showing/hiding answers
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('open');
+            });
+        });
+    </script>
+</body>
+
+</html>
