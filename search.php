@@ -356,92 +356,91 @@
         </main>
 
             <div class="search-results-item">
-                <?php
-                // Check if the form has been submitted and process the search
-                if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-                    // Retrieve form data
-                    $first_name = isset($_GET['firstName']) ? $_GET['firstName'] : '';
-                    $last_name = isset($_GET['lastName']) ? $_GET['lastName'] : '';
-                    $district = isset($_GET['district']) ? $_GET['district'] : '';
+<?php
+// Check if the form has been submitted and process the search
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    // Retrieve form data
+    $first_name = isset($_GET['firstName']) ? $_GET['firstName'] : '';
+    $last_name = isset($_GET['lastName']) ? $_GET['lastName'] : '';
+    $district = isset($_GET['district']) ? $_GET['district'] : '';
 
-                    // Check if all search fields are empty
-                    if (empty($first_name) && empty($last_name) && empty($district)) {
-                        echo '<p>Please enter data above to display voter details.</p>';
-                    } else {
-                        // Proceed with database connection and query
-                        $host = 'aws-0-ap-south-1.pooler.supabase.com';
-                        $port = '6543';
-                        $dbname = 'postgres';
-                        $user = 'postgres.egmwwfojqginumzzxagw';
-                        $password = 'kesavkumarj';
+    // Check if all search fields are empty
+    if (empty($first_name) && empty($last_name) && empty($district)) {
+        echo '<p>Please enter data above to display voter details.</p>';
+    } else {
+        // Proceed with database connection and query
+        $host = 'aws-0-ap-south-1.pooler.supabase.com';
+        $port = '6543';
+        $dbname = 'postgres';
+        $user = 'postgres.egmwwfojqginumzzxagw';
+        $password = 'kesavkumarj';
+        $dsn = "pgsql:host=$host;port=$port;dbname=$dbname";
 
-                        $conn = pg_connect("host=$host port=$port dbname=$dbname user=$user password=$password");
+        try {
+            $conn = new PDO($dsn, $user, $password, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 
-                        if (!$conn) {
-                            die("Connection failed: " . pg_last_error());
-                        }
+            // Construct the base SQL query
+            $sql = "SELECT voter_details.*, contact_details.email, contact_details.phone, addresses.district, addresses.address, addresses.pincode
+                    FROM voter_details
+                    LEFT JOIN contact_details ON voter_details.voter_id = contact_details.voter_id
+                    LEFT JOIN addresses ON voter_details.voter_id = addresses.voter_id";
 
-                        // Construct the base SQL query
-                        $sql = "SELECT voter_details.*, contact_details.email, contact_details.phone, addresses.district, addresses.address, addresses.pincode
-                                FROM voter_details
-                                LEFT JOIN contact_details ON voter_details.voter_id = contact_details.voter_id
-                                LEFT JOIN addresses ON voter_details.voter_id = addresses.voter_id
-                                ";
+            // Create an array to store conditions
+            $conditions = [];
+            $params = [];
 
-                        // Create an array to store conditions
-                        $conditions = [];
+            // Add conditions based on provided form data
+            if (!empty($first_name)) {
+                $conditions[] = "voter_details.first_name = :first_name";
+                $params[':first_name'] = $first_name;
+            }
+            if (!empty($last_name)) {
+                $conditions[] = "voter_details.last_name = :last_name";
+                $params[':last_name'] = $last_name;
+            }
+            if (!empty($district)) {
+                $conditions[] = "addresses.district = :district";
+                $params[':district'] = $district;
+            }
 
-                        // Add conditions based on provided form data
-                        if (!empty($first_name)) {
-                            $conditions[] = "voter_details.first_name = '$first_name'";
-                        }
-                        if (!empty($last_name)) {
-                            $conditions[] = "voter_details.last_name = '$last_name'";
-                        }
-                        if (!empty($district)) {
-                            $conditions[] = "addresses.district = '$district'";
-                        }
+            if (!empty($conditions)) {
+                $sql .= " WHERE " . implode(" AND ", $conditions);
+            }
 
-                        if (!empty($conditions)) {
-                            $sql .= " WHERE " . implode(" AND ", $conditions);
-                        }
+            // Prepare and execute the SQL query
+            $stmt = $conn->prepare($sql);
+            $stmt->execute($params);
 
-                        // Execute the SQL query
-                        $result = pg_query($conn, $sql);
-
-                        if (!$result) {
-                            die("Query failed: " . pg_last_error());
-                        }
-
-                        // Check if any data matches the search criteria
-                        if (pg_num_rows($result) > 0) {
-                            // Display the results
-                            while ($row = pg_fetch_assoc($result)) {
-                                echo '<div class="search-results-item">';
-                                echo "<p>Voter ID: " . $row['voter_id'] . "</p>";
-                                echo "<p>First Name: " . $row['first_name'] . "</p>";
-                                echo "<p>Last Name: " . $row['last_name'] . "</p>";
-                                echo "<p>Date of Birth: " . $row['date_of_birth'] . "</p>";
-                                echo "<p>Age: " . $row['age'] . "</p>";
-                                echo "<p>Gender: " . $row['gender'] . "</p>";
-                                echo "<p>Acceptance: " . ($row['acceptance'] ? 'Yes' : 'No') . "</p>";
-                                echo "<p>Email: " . $row['email'] . "</p>";
-                                echo "<p>Phone: " . $row['phone'] . "</p>";
-                                echo "<p>District: " . $row['district'] . "</p>";
-                                echo "<p>Address: " . $row['address'] . "</p>";
-                                echo "<p>Pincode: " . $row['pincode'] . "</p>";
-                                echo '</div>'; // Closing div for search-results-item
-                                echo '<hr>'; // Separator between each voter
-                            }
-                        } else {
-                            echo "No data matches!";
-                        }
-
-                        // Close the database connection
-                        pg_close($conn);
-                    }
+            // Check if any data matches the search criteria
+            if ($stmt->rowCount() > 0) {
+                // Display the results
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    echo '<div class="search-results-item">';
+                    echo "<p>Voter ID: " . $row['voter_id'] . "</p>";
+                    echo "<p>First Name: " . $row['first_name'] . "</p>";
+                    echo "<p>Last Name: " . $row['last_name'] . "</p>";
+                    echo "<p>Date of Birth: " . $row['date_of_birth'] . "</p>";
+                    echo "<p>Age: " . $row['age'] . "</p>";
+                    echo "<p>Gender: " . $row['gender'] . "</p>";
+                    echo "<p>Acceptance: " . ($row['acceptance'] ? 'Yes' : 'No') . "</p>";
+                    echo "<p>Email: " . $row['email'] . "</p>";
+                    echo "<p>Phone: " . $row['phone'] . "</p>";
+                    echo "<p>District: " . $row['district'] . "</p>";
+                    echo "<p>Address: " . $row['address'] . "</p>";
+                    echo "<p>Pincode: " . $row['pincode'] . "</p>";
+                    echo '</div>'; // Closing div for search-results-item
+                    echo '<hr>'; // Separator between each voter
                 }
-                ?>
+            } else {
+                echo "No data matches!";
+            }
+        } catch (PDOException $e) {
+            die("Connection failed: " . $e->getMessage());
+        }
+    }
+}
+?>
+
             </div>
 
         
