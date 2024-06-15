@@ -473,66 +473,73 @@ $database = 'postgres';
 $user = 'postgres.egmwwfojqginumzzxagw';
 $password = 'kesavkumarj';
 
-// Connect to PostgreSQL
-$conn = pg_connect("host=$host port=$port dbname=$database user=$user password=$password");
+try {
+    // Connect to PostgreSQL using PDO
+    $dsn = "pgsql:host=$host;port=$port;dbname=$database;user=$user;password=$password";
+    $pdo = new PDO($dsn);
 
-if (!$conn) {
-die("Connection failed");
-}
+    // Set PDO to throw exceptions on error
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// Check if the form is submitted and district is selected
-if (isset($_GET['assemblyConstituency']) && !empty($_GET['assemblyConstituency'])) {
-$assemblyConstituency = $_GET['assemblyConstituency'];
+    // Check if the form is submitted and assemblyConstituency is selected
+    if (isset($_GET['assemblyConstituency']) && !empty($_GET['assemblyConstituency'])) {
+        $assemblyConstituency = $_GET['assemblyConstituency'];
 
-// Query to retrieve candidates based on the district
-$query = "
-SELECT
-    candidates.candidate_id,
-    candidates.candidate_name,
-    Party.PartyName,
-    constituencies.assembly_constituency AS constituency_name
-FROM
-    candidates
-    INNER JOIN election_results ON candidates.candidate_id = election_results.winner_id
-    INNER JOIN Party ON candidates.party_id = Party.PartyID
-    INNER JOIN constituencies ON election_results.constituency_id = constituencies.constituency_id
-WHERE
-    constituencies.assembly_constituency = $1
-UNION
-SELECT
-    candidates.candidate_id,
-    candidates.candidate_name,
-    Party.PartyName,
-    constituencies.assembly_constituency AS constituency_name
-FROM
-    candidates
-    INNER JOIN election_results ON candidates.candidate_id = election_results.runner_up_id
-    INNER JOIN Party ON candidates.party_id = Party.PartyID
-    INNER JOIN constituencies ON election_results.constituency_id = constituencies.constituency_id
-WHERE
-    constituencies.assembly_constituency = $1;
-";
+        // Query to retrieve candidates based on the assemblyConstituency
+        $query = "
+            SELECT
+                candidates.candidate_id,
+                candidates.candidate_name,
+                Party.PartyName AS partyname,  -- Ensure column alias matches case
+                constituencies.assembly_constituency AS constituency_name
+            FROM
+                candidates
+                INNER JOIN election_results ON candidates.candidate_id = election_results.winner_id
+                INNER JOIN Party ON candidates.party_id = Party.PartyID
+                INNER JOIN constituencies ON election_results.constituency_id = constituencies.constituency_id
+            WHERE
+                constituencies.assembly_constituency = :assemblyConstituency
+            UNION
+            SELECT
+                candidates.candidate_id,
+                candidates.candidate_name,
+                Party.PartyName AS partyname,  -- Ensure column alias matches case
+                constituencies.assembly_constituency AS constituency_name
+            FROM
+                candidates
+                INNER JOIN election_results ON candidates.candidate_id = election_results.runner_up_id
+                INNER JOIN Party ON candidates.party_id = Party.PartyID
+                INNER JOIN constituencies ON election_results.constituency_id = constituencies.constituency_id
+            WHERE
+                constituencies.assembly_constituency = :assemblyConstituency;
+        ";
 
-$result = pg_query_params($conn, $query, [$assemblyConstituency]);
-echo '<table>';
-echo '<tr><th>Candidate ID</th><th>Candidate Name</th><th>Party Name</th><th>Constituency Name</th></tr>';
-if ($result) {
-    while ($row = pg_fetch_assoc($result)) {
-        echo '<tr>';
-        echo '<td>' . $row['candidate_id'] . '</td>';
-        echo '<td>' . $row['candidate_name'] . '</td>';
-        echo '<td>' . (isset($row['partyname']) ? $row['partyname'] : 'No Party Details') . '</td>';
-        echo '<td>' . $row['constituency_name'] . '</td>';
-        echo '</tr>';
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(':assemblyConstituency', $assemblyConstituency);
+        $stmt->execute();
+
+        echo '<table>';
+        echo '<tr><th>Candidate ID</th><th>Candidate Name</th><th>Party Name</th><th>Constituency Name</th></tr>';
+        
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo '<tr>';
+            echo '<td>' . $row['candidate_id'] . '</td>';
+            echo '<td>' . $row['candidate_name'] . '</td>';
+            echo '<td>' . (isset($row['partyname']) ? $row['partyname'] : 'No Party Details') . '</td>';
+            echo '<td>' . $row['constituency_name'] . '</td>';
+            echo '</tr>';
+        }
+
+        echo '</table>';
     }
-    echo '</table>';
-} else {
-    echo 'Query failed';
-}
-}
 
-// Close the database connection
-pg_close($conn);
+} catch (PDOException $e) {
+    die("Error: " . $e->getMessage());
+} finally {
+    // Close the database connection
+    unset($pdo);  // Explicitly unset PDO object to close connection
+}
 ?>
+
 </body>
 </html>
