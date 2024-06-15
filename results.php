@@ -18,9 +18,12 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Build the SQL query based on selected constituency
-    $sql = "SELECT * FROM election_results";
+    $sql = "SELECT er.*, c.assembly_constituency 
+            FROM election_results er
+            LEFT JOIN constituencies c ON er.constituency_id = c.constituency_id";
+    
     if (!empty($selectedConstituency)) {
-        $sql .= " WHERE constituency_id IN (SELECT constituency_id FROM constituencies WHERE assembly_constituency=:constituency)";
+        $sql .= " WHERE c.assembly_constituency = :constituency";
     }
 
     // Prepare and execute the SQL query
@@ -38,7 +41,6 @@ try {
     die();
 }
 ?>
-    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -370,17 +372,13 @@ try {
         </style>
 <body>
 <header>
-        <br>
         <a href="index.php" class="small-button">Home</a>
         <h1>Election Commission of Tamil Nadu</h1>
-        <br>
     </header>
 
     <h1 style="text-align: center;">Results-2021</h1>
 
-       
     <main>
-        <!-- Add a search form above the table -->
         <section>
             <h2>Search Results</h2>
             <form method="GET" action="">
@@ -388,404 +386,329 @@ try {
                     <div class="light-box">
                         <label for="assemblyConstituency">Select Assembly Constituency:</label>
                         <select id="assemblyConstituency" name="assemblyConstituency">
-                    <!-- Options will be populated dynamically using JavaScript -->
-                </select>
+                            <option value="">Select Assembly Constituency</option>
+                            <!-- Populate options here -->
+                            <?php
+                            $constituencies = [
+                                "Gummidipoondi",
+                                "Ponneri (SC)", 
+                                "Tiruttani",
+                                "Thiruvallur",
+    "Poonamallee (SC)",
+    "Avadi",
+    "Maduravoyal",
+    "Ambattur",
+    "Madavaram",
+    "Thiruvottiyur",
+    "Dr. Radhakrishnan Nagar",
+    "Perambur",
+    "Kolathur",
+    "Villivakkam",
+    "Thiru-Vi-Ka-Nagar (SC)",
+    "Egmore (SC)",
+    "Royapuram",
+    "Harbour",
+    "Chepauk-Thiruvallikeni",
+    "Thousand Lights",
+    "Anna Nagar",
+    "Virugampakkam",
+    "Saidapet",
+    "Thiyagaraya Nagar",
+    "Mylapore",
+    "Velachery",
+    "Shozhinganallur",
+    "Alandur",
+    "Sriperumbudur (SC)",
+    "Pallavaram",
+    "Tambaram",
+    "Chengalpattu",
+    "Thiruporur",
+    "Cheyyur (SC)",
+    "Maduranthakam (SC)",
+    "Uthiramerur",
+    "Kancheepuram",
+    "Arakkonam (SC)",
+    "Sholingur",
+    "Ranipet",
+    "Arcot",
+    "Katpadi",
+    "Vellore",
+    "Anaikattu",
+    "Kilvaithinankuppam (SC)",
+    "Gudiyattam (SC)",
+    "Vaniyambadi",
+    "Ambur",
+    "Jolarpet",
+    "Tirupattur (Vellore)",
+    "Uthangarai (SC)",
+    "Bargur",
+    "Krishnagiri",
+    "Veppanahalli",
+    "Hosur",
+    "Thalli",
+    "Palacode",
+    "Pennagaram",
+    "Dharmapuri",
+    "Pappireddippatti",
+    "Harur (SC)",
+    "Chengam (SC)",
+    "Tiruvannamalai",
+    "Kilpennathur",
+    "Kalasapakkam",
+    "Polur",
+    "Arani",
+    "Cheyyar",
+    "Vandavasi (SC)",
+    "Gingee",
+    "Mailam",
+    "Tindivanam",
+    "Vanur (SC)",
+    "Villupuram",
+    "Vikravandi",
+    "Tirukkoyilur",
+    "Ulundurpettai",
+    "Rishivandiyam",
+    "Sankarapuram",
+    "Kallakurichi (SC)",
+    "Gangavalli (SC)",
+    "Attur (SC)",
+    "Yercaud (ST)",
+    "Omalur",
+    "Mettur",
+    "Edappadi",
+    "Sankari",
+    "Salem (West)",
+    "Salem (North)",
+    "Salem (South)",
+    "Veerapandi",
+    "Rasipuram (SC)",
+    "Senthamangalam (ST)",
+    "Namakkal",
+    "Paramathi-Velur",
+    "Tiruchengodu",
+    "Kumarapalayam",
+    "Erode (East)",
+    "Erode (West)",
+    "Modakkurichi",
+    "Dharapuram (SC)",
+    "Kangayam",
+    "Perundurai",
+    "Bhavani",
+    "Anthiyur",
+    "Gobichettipalayam",
+    "Bhavanisagar (SC)",
+    "Udhagamandalam",
+    "Gudalur (SC)",
+    "Coonoor",
+    "Mettupalayam",
+    "Avanashi (SC)",
+    "Tiruppur (North)",
+    "Tiruppur (South)",
+    "Palladam",
+    "Sulur",
+    "Kavundampalayam",
+    "Coimbatore (North)",
+    "Thondamuthur",
+    "Coimbatore (South)",
+    "Singanallur",
+    "Kinathukadavu",
+    "Pollachi",
+    "Valparai (SC)",
+    "Udumalaipettai",
+    "Madathukulam",
+    "Palani",
+    "Oddanchatram",
+    "Athoor",
+    "Nilakottai (SC)",
+    "Natham",
+    "Dindigul",
+    "Vedasandur",
+    "Aravakurichi",
+    "Karur",
+    "Krishnarayapuram (SC)",
+    "Kulithalai",
+    "Manapaarai",
+    "Srirangam",
+    "Tiruchirappalli (West)",
+    "Tiruchirappalli (East)",
+    "Thiruverumbur",
+    "Lalgudi",
+    "Manachanallur",
+    "Musiri",
+    "Thuraiyur (SC)",
+    "Perambalur (SC)",
+    "Kunnam",
+    "Ariyalur",
+    "Jayankondam",
+    "Tittakudi (SC)",
+    "Vriddhachalam",
+    "Neyveli",
+    "Panruti",
+    "Cuddalore",
+    "Kurinjipadi",
+    "Bhuvanagiri",
+    "Chidambaram",
+    "Kattumannarkoil (SC)",
+    "Sirkazhi (SC)",
+    "Mayiladuthurai",
+    "Poompuhar",
+    "Nagapattinam",
+    "Kilvelur (SC)",
+    "Vedaranyam",
+    "Thiruthuraipoondi (SC)",
+    "Mannargudi",
+    "Thiruvarur",
+    "Nannilam",
+    "Thiruvidaimarudur (SC)",
+    "Kumbakonam",
+    "Papanasam",
+    "Thiruvaiyaru",
+    "Thanjavur",
+    "Orathanadu",
+    "Pattukkottai",
+    "Peravurani",
+    "Gandharvakottai (SC)",
+    "Viralimalai",
+    "Pudukkottai",
+    "Thirumayam",
+    "Alangudi",
+    "Aranthangi",
+    "Karaikudi",
+    "Tiruppattur (Sivaganga)",
+    "Sivaganga",
+    "Manamadurai (SC)",
+    "Melur",
+    "Madurai East",
+    "Sholavandan (SC)",
+    "Madurai North",
+    "Madurai South",
+    "Madurai Central",
+    "Madurai West",
+    "Thiruparankundram",
+    "Tirumangalam",
+    "Usilampatti",
+    "Andipatti",
+    "Periyakulam (SC)",
+    "Bodinayakanur",
+    "Cumbum",
+    "Rajapalayam",
+    "Srivilliputhur (SC)",
+    "Sattur",
+    "Sivakasi",
+    "Virudhunagar",
+    "Aruppukkottai",
+    "Tiruchuli",
+    "Paramakudi (SC)",
+    "Tiruvadanai",
+    "Ramanathapuram",
+    "Mudhukulathur",
+    "Vilathikulam",
+    "Thoothukkudi",
+    "Tiruchendur",
+    "Srivaikuntam",
+    "Ottapidaram (SC)",
+    "Kovilpatti",
+    "Sankarankovil (SC)",
+    "Vasudevanallur (SC)",
+    "Kadayanallur",
+    "Tenkasi",
+    "Alangulam",
+    "Tirunelveli",
+    "Ambasamudram",
+    "Palayamkottai",
+    "Nanguneri",
+    "Radhapuram",
+    "Kanniyakumari",
+    "Nagercoil",
+    "Colachel",
+    "Padmanabhapuram",
+    "Vilavancode",
+    "Killiyoor",// Add all constituencies
+                            ];
+
+                            foreach ($constituencies as $constituency) {
+                                echo "<option value=\"$constituency\"";
+                                if ($selectedConstituency === $constituency) {
+                                    echo " selected";
+                                }
+                                echo ">$constituency</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="button">Search</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Results Table</h2>
+            <div class="table-container">
+                <div class="table-scroll">
+                    <?php if (!empty($results)): ?>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Assembly Constituency</th>
+                                <th>Turnout Percentage</th>
+                                <th>Winner Name</th>
+                                <th>Winner Party</th>
+                                <th>Winner Votes</th>
+                                <th>Winner Percentage</th>
+                                <th>Runner-Up Name</th>
+                                <th>Runner-Up Party</th>
+                                <th>Runner-Up Votes</th>
+                                <th>Runner-Up Percentage</th>
+                                <th>Margin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($results as $result): ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($result['assembly_constituency']); ?></td>
+                                    <td><?php echo htmlspecialchars($result['turnout_percentage']); ?></td>
+                                    <?php
+                                    displayCandidateInfo($pdo, $result['winner_id']);
+                                    displayCandidateInfo($pdo, $result['runner_up_id']);
+                                    ?>
+                                    <td><?php echo htmlspecialchars($result['margin']); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <?php else: ?>
+                    <p>No results found.</p>
+                    <?php endif; ?>
+                </div>
             </div>
-        </div>
+        </section>
+    </main>
+</body>
+</html>
 
-        <button type="submit" class="button">Search</button>
-    </form>
+<?php
+function displayCandidateInfo($pdo, $candidateId) {
+    $partyQuery = "SELECT p.PartyName, c.candidate_name, c.votes, c.percentage
+                    FROM Party p
+                    INNER JOIN candidates c ON p.PartyID = c.party_id
+                    WHERE c.candidate_id = :candidate_id";
+    
+    try {
+        $stmt = $pdo->prepare($partyQuery);
+        $stmt->bindParam(':candidate_id', $candidateId);
+        $stmt->execute();
+        $candidateInfo = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    <script>
-        var constituenciesData = {
-            tamilNadu:[
-        "Select Assembly Constituency",
-        "Gummidipoondi",
-        "Ponneri (SC)",
-        "Tiruttani",
-        "Thiruvallur",
-        "Poonamallee (SC)",
-        "Avadi",
-        "Maduravoyal",
-        "Ambattur",
-        "Madavaram",
-        "Thiruvottiyur",
-        "Dr. Radhakrishnan Nagar",
-        "Perambur",
-        "Kolathur",
-        "Villivakkam",
-        "Thiru-Vi-Ka-Nagar (SC)",
-        "Egmore (SC)",
-        "Royapuram",
-        "Harbour",
-        "Chepauk-Thiruvallikeni",
-        "Thousand Lights",
-        "Anna Nagar",
-        "Virugampakkam",
-        "Saidapet",
-        "Thiyagaraya Nagar",
-        "Mylapore",
-        "Velachery",
-        "Shozhinganallur",
-        "Alandur",
-        "Sriperumbudur (SC)",
-        "Pallavaram",
-        "Tambaram",
-        "Chengalpattu",
-        "Thiruporur",
-        "Cheyyur (SC)",
-        "Maduranthakam (SC)",
-        "Uthiramerur",
-        "Kancheepuram",
-        "Arakkonam (SC)",
-        "Sholingur",
-        "Ranipet",
-        "Arcot",
-        "Katpadi",
-        "Vellore",
-        "Anaikattu",
-        "Kilvaithinankuppam (SC)",
-        "Gudiyattam (SC)",
-        "Vaniyambadi",
-        "Ambur",
-        "Jolarpet",
-        "Tirupattur (Vellore)",
-        "Uthangarai (SC)",
-        "Bargur",
-        "Krishnagiri",
-        "Veppanahalli",
-        "Hosur",
-        "Thalli",
-        "Palacode",
-        "Pennagaram",
-        "Dharmapuri",
-        "Pappireddippatti",
-        "Harur (SC)",
-        "Chengam (SC)",
-        "Tiruvannamalai",
-        "Kilpennathur",
-        "Kalasapakkam",
-        "Polur",
-        "Arani",
-        "Cheyyar",
-        "Vandavasi (SC)",
-        "Gingee",
-        "Mailam",
-        "Tindivanam",
-        "Vanur (SC)",
-        "Villupuram",
-        "Vikravandi",
-        "Tirukkoyilur",
-        "Ulundurpettai",
-        "Rishivandiyam",
-        "Sankarapuram",
-        "Kallakurichi (SC)",
-        "Gangavalli (SC)",
-        "Attur (SC)",
-        "Yercaud (ST)",
-        "Omalur",
-        "Mettur",
-        "Edappadi",
-        "Sankari",
-        "Salem (West)",
-        "Salem (North)",
-        "Salem (South)",
-        "Veerapandi",
-        "Rasipuram (SC)",
-        "Senthamangalam (ST)",
-        "Namakkal",
-        "Paramathi-Velur",
-        "Tiruchengodu",
-        "Kumarapalayam",
-        "Erode (East)",
-        "Erode (West)",
-        "Modakkurichi",
-        "Dharapuram (SC)",
-        "Kangayam",
-        "Perundurai",
-        "Bhavani",
-        "Anthiyur",
-        "Gobichettipalayam",
-        "Bhavanisagar (SC)",
-        "Udhagamandalam",
-        "Gudalur (SC)",
-        "Coonoor",
-        "Mettupalayam",
-        "Avanashi (SC)",
-        "Tiruppur (North)",
-        "Tiruppur (South)",
-        "Palladam",
-        "Sulur",
-        "Kavundampalayam",
-        "Coimbatore (North)",
-        "Thondamuthur",
-        "Coimbatore (South)",
-        "Singanallur",
-        "Kinathukadavu",
-        "Pollachi",
-        "Valparai (SC)",
-        "Udumalaipettai",
-        "Madathukulam",
-        "Palani",
-        "Oddanchatram",
-        "Athoor",
-        "Nilakottai (SC)",
-        "Natham",
-        "Dindigul",
-        "Vedasandur",
-        "Aravakurichi",
-        "Karur",
-        "Krishnarayapuram (SC)",
-        "Kulithalai",
-        "Manapaarai",
-        "Srirangam",
-        "Tiruchirappalli (West)",
-        "Tiruchirappalli (East)",
-        "Thiruverumbur",
-        "Lalgudi",
-        "Manachanallur",
-        "Musiri",
-        "Thuraiyur (SC)",
-        "Perambalur (SC)",
-        "Kunnam",
-        "Ariyalur",
-        "Jayankondam",
-        "Tittakudi (SC)",
-        "Vriddhachalam",
-        "Neyveli",
-        "Panruti",
-        "Cuddalore",
-        "Kurinjipadi",
-        "Bhuvanagiri",
-        "Chidambaram",
-        "Kattumannarkoil (SC)",
-        "Sirkazhi (SC)",
-        "Mayiladuthurai",
-        "Poompuhar",
-        "Nagapattinam",
-        "Kilvelur (SC)",
-        "Vedaranyam",
-        "Thiruthuraipoondi (SC)",
-        "Mannargudi",
-        "Thiruvarur",
-        "Nannilam",
-        "Thiruvidaimarudur (SC)",
-        "Kumbakonam",
-        "Papanasam",
-        "Thiruvaiyaru",
-        "Thanjavur",
-        "Orathanadu",
-        "Pattukkottai",
-        "Peravurani",
-        "Gandharvakottai (SC)",
-        "Viralimalai",
-        "Pudukkottai",
-        "Thirumayam",
-        "Alangudi",
-        "Aranthangi",
-        "Karaikudi",
-        "Tiruppattur (Sivaganga)",
-        "Sivaganga",
-        "Manamadurai (SC)",
-        "Melur",
-        "Madurai East",
-        "Sholavandan (SC)",
-        "Madurai North",
-        "Madurai South",
-        "Madurai Central",
-        "Madurai West",
-        "Thiruparankundram",
-        "Tirumangalam",
-        "Usilampatti",
-        "Andipatti",
-        "Periyakulam (SC)",
-        "Bodinayakanur",
-        "Cumbum",
-        "Rajapalayam",
-        "Srivilliputhur (SC)",
-        "Sattur",
-        "Sivakasi",
-        "Virudhunagar",
-        "Aruppukkottai",
-        "Tiruchuli",
-        "Paramakudi (SC)",
-        "Tiruvadanai",
-        "Ramanathapuram",
-        "Mudhukulathur",
-        "Vilathikulam",
-        "Thoothukkudi",
-        "Tiruchendur",
-        "Srivaikuntam",
-        "Ottapidaram (SC)",
-        "Kovilpatti",
-        "Sankarankovil (SC)",
-        "Vasudevanallur (SC)",
-        "Kadayanallur",
-        "Tenkasi",
-        "Alangulam",
-        "Tirunelveli",
-        "Ambasamudram",
-        "Palayamkottai",
-        "Nanguneri",
-        "Radhapuram",
-        "Kanniyakumari",
-        "Nagercoil",
-        "Colachel",
-        "Padmanabhapuram",
-        "Vilavancode",
-        "Killiyoor",
-        // ... (remaining constituencies)
-    ],
-};
-        var assemblyConstituencyDropdown = document.getElementById("assemblyConstituency");
-
-// Clear existing options
-assemblyConstituencyDropdown.innerHTML = "";
-
-// Populate options directly from the constituenciesData object
-for (var district in constituenciesData) {
-    if (constituenciesData.hasOwnProperty(district)) {
-        var constituencies = constituenciesData[district];
-
-        // Add a separator option for each district
-        var separatorOption = document.createElement("option");
-        separatorOption.value = "";
-        separatorOption.text = "-------- " + district.toUpperCase() + " --------";
-        separatorOption.disabled = true;
-        assemblyConstituencyDropdown.add(separatorOption);
-
-        // Add constituency options
-        for (var i = 1; i < constituencies.length; i++) {
-            var option = document.createElement("option");
-            option.value = constituencies[i];
-            option.text = constituencies[i];
-            assemblyConstituencyDropdown.add(option);
+        if ($candidateInfo) {
+            echo "<td>" . htmlspecialchars($candidateInfo['candidate_name']) . "</td>";
+            echo "<td>" . htmlspecialchars($candidateInfo['PartyName']) . "</td>";
+            echo "<td>" . htmlspecialchars($candidateInfo['votes']) . "</td>";
+            echo "<td>" . htmlspecialchars($candidateInfo['percentage']) . "</td>";
+        } else {
+            echo "<td colspan='4'>Candidate information not available</td>";
         }
+    } catch (PDOException $e) {
+        echo "<td colspan='4'>Error fetching candidate information: " . $e->getMessage() . "</td>";
     }
 }
-    </script>
-<section>
-    <h2>Results Table</h2>
-    <div class="table-container">
-        <div class="table-scroll">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Assembly Constituency</th>
-                        <th>Turnout Percentage</th>
-                        <th>Winner Name</th>
-                        <th>Winner Party</th>
-                        <th>Winner Votes</th>
-                        <th>Winner Percentage</th>
-                        <th>Runner-Up Name</th>
-                        <th>Runner-Up Party</th>
-                        <th>Runner-Up Votes</th>
-                        <th>Runner-Up Percentage</th>
-                        <th>Margin</th>
-                    </tr>
-                </thead>
-                <tbody>
-        <?php
-                    error_reporting(E_ALL);
-                    ini_set('display_errors', 1);
-
-                    if ($results) {
-                        foreach ($results as $result) {
-                            echo "<tr>";
-                            $assemblyQuery = "SELECT assembly_constituency FROM constituencies WHERE constituency_id = :constituency_id";
-                            $assemblyStmt = $pdo->prepare($assemblyQuery);
-        $assemblyStmt->bindParam(':constituency_id', $result['constituency_id']);
-        $assemblyStmt->execute();
-        $assemblyResult = $assemblyStmt->fetch(PDO::FETCH_ASSOC);
-        $assemblyConstituency = (!empty($assemblyResult) && isset($assemblyResult['assembly_constituency'])) ? $assemblyResult['assembly_constituency'] : "Assembly Constituency not found";
-
-        echo "<td>" . $assemblyConstituency . "</td>";
-                            
-                            echo "<td>" . $result['turnout_percentage'] . "</td>";
-
-                            // Winner
-                            displayCandidateInfo($pdo, $result['winner_id']);
-
-                            // Runner-Up
-                            displayCandidateInfo($pdo, $result['runner_up_id']);
-
-                            echo "<td>" . $result['margin'] . "</td>";
-                            echo "</tr>";
-                        }
-                    } else {
-                        echo "<tr><td colspan='11'>No results found.</td></tr>";
-                    }
-
-                    function displayCandidateInfo($pdo, $candidateId) {
-                        $partyQuery = "
-                        SELECT Party.PartyName
-                        FROM Party
-                        WHERE Party.PartyID = (
-                            SELECT candidates.party_id
-                            FROM candidates
-                            WHERE candidates.candidate_id = :candidate_id
-                        );
-                        
-    ";
-
-    $candidateNameQuery = "SELECT candidate_name FROM candidates WHERE candidate_id = :candidate_id";
-$votesQuery = "SELECT votes FROM candidates WHERE candidate_id = :candidate_id";
-$percentageQuery = "SELECT percentage FROM candidates WHERE candidate_id = :candidate_id";
-
-
-try {
-    // Execute the party query with the candidate_id parameter
-    $partyStmt = $pdo->prepare($partyQuery);
-    $partyStmt->bindParam(':candidate_id', $candidateId);
-    $partyStmt->execute();
-
-   
-
-    $partyResult = $partyStmt->fetch(PDO::FETCH_ASSOC);
-
-    
-
-    if (!empty($partyResult) && isset($partyResult['partyname'])) {
-        $party = $partyResult['partyname'];
-    } else {
-        $party = "Party information not available";
-    }
-
-                        // Execute other queries with the candidate_id parameter
-                        $nameStmt = $pdo->prepare($candidateNameQuery);
-                        $nameStmt->bindParam(':candidate_id', $candidateId);
-                        $nameStmt->execute();
-                        $candidateName = $nameStmt->fetch(PDO::FETCH_ASSOC)['candidate_name'];
-                        // (Your existing code for candidateName, votes, and percentage)
-                        $votesStmt = $pdo->prepare($votesQuery);
-                        $votesStmt->bindParam(':candidate_id', $candidateId);
-                        $votesStmt->execute();
-                        $votes = $votesStmt->fetch(PDO::FETCH_ASSOC)['votes'];
-                    
-                        $percentageStmt = $pdo->prepare($percentageQuery);
-                        $percentageStmt->bindParam(':candidate_id', $candidateId);
-                        $percentageStmt->execute();
-                        $percentage = $percentageStmt->fetch(PDO::FETCH_ASSOC)['percentage'];
-                    
-                        echo "<td>$candidateName</td>";
-                        echo "<td>$party</td>";
-                        echo "<td>$votes</td>";
-                        echo "<td>$percentage</td>";
-                    } catch (PDOException $e) {
-                        echo "Error fetching candidate information: " . $e->getMessage();
-                    }
-                }
-                    
-                    ?>
-        </tbody>
-    </table>
-</section>
-    </main>
-
-
-            </div>
-            </div>
-    
-</body>
-
-</html>
+?>
