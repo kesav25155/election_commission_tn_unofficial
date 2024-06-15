@@ -1,4 +1,26 @@
 <?php
+// Function to display candidate information
+function displayCandidateInfo($pdo, $candidate_id) {
+    // Prepare SQL query to fetch candidate information
+    $sql = "SELECT candidate_name, candidate_party, votes_received, percentage FROM candidates WHERE candidate_id = :id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id', $candidate_id);
+    $stmt->execute();
+    $candidate = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Check if candidate exists
+    if ($candidate) {
+        // Output candidate information
+        echo "<td>" . $candidate['candidate_name'] . "</td>";
+        echo "<td>" . $candidate['candidate_party'] . "</td>";
+        echo "<td>" . $candidate['votes_received'] . "</td>";
+        echo "<td>" . $candidate['percentage'] . "</td>";
+    } else {
+        // Output placeholder if candidate not found
+        echo "<td colspan='4'>Candidate not found</td>";
+    }
+}
+
 // Initialize $results as an empty array
 $results = [];
 
@@ -38,7 +60,6 @@ try {
     die();
 }
 ?>
-
    
 <!DOCTYPE html>
 <html lang="en">
@@ -665,55 +686,70 @@ for (var district in constituenciesData) {
     }
 }
     </script>
-<section>
-    <h2>Results Table</h2>
-    <div class="table-container">
-        <div class="table-scroll">
-            <table>
-                <!-- Table headers remain the same -->
-                <thead>
-                    <tr>
-                        <th>Assembly Constituency</th>
-                        <th>Turnout Percentage</th>
-                        <th>Winner Name</th>
-                        <th>Winner Party</th>
-                        <th>Winner Votes</th>
-                        <th>Winner Percentage</th>
-                        <th>Runner-Up Name</th>
-                        <th>Runner-Up Party</th>
-                        <th>Runner-Up Votes</th>
-                        <th>Runner-Up Percentage</th>
-                        <th>Margin</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    if ($results) {
-                        foreach ($results as $result) {
-                            echo "<tr>";
-                            // Display assembly constituency
-                            // Adjusted to fetch data directly from the query result
-                            echo "<td>" . $result['assembly_constituency'] . "</td>";
-                            echo "<td>" . $result['turnout_percentage'] . "</td>";
+        <section>
+            <h2>Results Table</h2>
+            <div class="table-container">
+                <div class="table-scroll">
+                    <table>
+                        <!-- Table headers remain the same -->
+                        <thead>
+                            <tr>
+                                <th>Assembly Constituency</th>
+                                <th>Turnout Percentage</th>
+                                <th>Winner Name</th>
+                                <th>Winner Party</th>
+                                <th>Winner Votes</th>
+                                <th>Winner Percentage</th>
+                                <th>Runner-Up Name</th>
+                                <th>Runner-Up Party</th>
+                                <th>Runner-Up Votes</th>
+                                <th>Runner-Up Percentage</th>
+                                <th>Margin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            if ($results) {
+                                foreach ($results as $result) {
+                                    echo "<tr>";
+                                    // Display assembly constituency and turnout percentage
+                                    echo "<td>" . $result['assembly_constituency'] . "</td>";
+                                    echo "<td>" . $result['turnout_percentage'] . "</td>";
 
-                            // Winner
-                            displayCandidateInfo($pdo, $result['winner_id']);
+                                    // Winner
+                                    echo "<td>";
+                                    displayCandidateInfo($pdo, $result['winner_id']);
+                                    echo "</td>";
 
-                            // Runner-Up
-                            displayCandidateInfo($pdo, $result['runner_up_id']);
+                                    // Winner Party, Votes, Percentage
+                                    echo "<td>" . $result['winner_party'] . "</td>";
+                                    echo "<td>" . $result['winner_votes'] . "</td>";
+                                    echo "<td>" . $result['winner_percentage'] . "</td>";
 
-                            echo "<td>" . $result['margin'] . "</td>";
-                            echo "</tr>";
-                        }
-                    } else {
-                        echo "<tr><td colspan='11'>No results found.</td></tr>";
-                    }
-                    ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</section>
+                                    // Runner-Up
+                                    echo "<td>";
+                                    displayCandidateInfo($pdo, $result['runner_up_id']);
+                                    echo "</td>";
+
+                                    // Runner-Up Party, Votes, Percentage
+                                    echo "<td>" . $result['runner_up_party'] . "</td>";
+                                    echo "<td>" . $result['runner_up_votes'] . "</td>";
+                                    echo "<td>" . $result['runner_up_percentage'] . "</td>";
+
+                                    // Margin
+                                    echo "<td>" . $result['margin'] . "</td>";
+
+                                    echo "</tr>";
+                                }
+                            } else {
+                                echo "<tr><td colspan='11'>No results found.</td></tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
 
     </main>
 
