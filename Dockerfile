@@ -7,8 +7,8 @@ WORKDIR /var/www/html
 # Copy the current directory contents into the container at /var/www/html
 COPY . .
 
-# Install PHP extensions if needed
-RUN docker-php-ext-install pdo pdo_mysql
+# Install PHP extensions
+RUN docker-php-ext-install pdo pdo_mysql pdo_pgsql
 
 # Expose port 80 to the outside world
 EXPOSE 80
