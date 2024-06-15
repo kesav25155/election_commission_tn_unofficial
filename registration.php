@@ -285,131 +285,132 @@ h1 {
     <form onsubmit="return validateForm(this)" action="registration.php" method="get" id="registrationForm">
             <div id="error-message" class="error-message">
                 <br>
-                <?php
-                $host = 'aws-0-ap-south-1.pooler.supabase.com';
-                $port = '6543';
-                $dbname = 'postgres';
-                $user = 'postgres.egmwwfojqginumzzxagw';
-                $password = 'kesavkumarj';
+<?php
+$host = 'aws-0-ap-south-1.pooler.supabase.com';
+$port = '6543';
+$dbname = 'postgres';
+$user = 'postgres.egmwwfojqginumzzxagw';
+$password = 'kesavkumarj';
+$dsn = "pgsql:host=$host;port=$port;dbname=$dbname";
 
-                $conn = pg_connect("host=$host port=$port dbname=$dbname user=$user password=$password");
-                if (!$conn) {
-                    die("Connection failed: " . pg_last_error());
-                }
+try {
+    $conn = new PDO($dsn, $user, $password, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+} catch (PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
+}
 
-                if ($_SERVER["REQUEST_METHOD"] == "GET") {
-                    // Validate form data
-                    $validationErrors = validateForm($_GET);
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    // Validate form data
+    $validationErrors = validateForm($_GET);
 
-                    if (empty($validationErrors)) {
-                        // Insert data into voter_details table
-                        $firstName = $_GET["firstName"];
-                        $lastName = $_GET["lastName"];
-                        $dob = $_GET["dob"];
-                        $age = $_GET["age"];
-                        $gender = $_GET["gender"];
+    if (empty($validationErrors)) {
+        // Insert data into voter_details table
+        $firstName = $_GET["firstName"];
+        $lastName = $_GET["lastName"];
+        $dob = $_GET["dob"];
+        $age = $_GET["age"];
+        $gender = $_GET["gender"];
 
-                        $voterQuery = "INSERT INTO voter_details (first_name, last_name, date_of_birth, age, gender, acceptance) VALUES ('$firstName', '$lastName', '$dob', $age, '$gender', true) RETURNING voter_id";
-                        $voterResult = pg_query($conn, $voterQuery);
+        try {
+            $conn->beginTransaction();
 
-                        if (!$voterResult) {
-                            die("Error in SQL query for voter_details: " . pg_last_error());
-                        }
+            $voterQuery = "INSERT INTO voter_details (first_name, last_name, date_of_birth, age, gender, acceptance) 
+                           VALUES (:firstName, :lastName, :dob, :age, :gender, true) RETURNING voter_id";
+            $voterStmt = $conn->prepare($voterQuery);
+            $voterStmt->execute([':firstName' => $firstName, ':lastName' => $lastName, ':dob' => $dob, ':age' => $age, ':gender' => $gender]);
+            $voterId = $voterStmt->fetchColumn();
 
-                        // Fetch the voter_id from the result set
-                        $row = pg_fetch_assoc($voterResult);
-                        $voterId = $row['voter_id'];
+            // Insert data into contact_details table
+            $email = $_GET["email"];
+            $phone = $_GET["phone"];
 
-                        // Insert data into contact_details table
-                        $email = $_GET["email"];
-                        $phone = $_GET["phone"];
+            $contactQuery = "INSERT INTO contact_details (voter_id, email, phone) VALUES (:voterId, :email, :phone)";
+            $contactStmt = $conn->prepare($contactQuery);
+            $contactStmt->execute([':voterId' => $voterId, ':email' => $email, ':phone' => $phone]);
 
-                        $contactQuery = "INSERT INTO contact_details (voter_id, email, phone) VALUES ($voterId, '$email', '$phone')";
-                        $contactResult = pg_query($conn, $contactQuery);
+            // Insert data into addresses table
+            $district = $_GET["district"];
+            $address = $_GET["address"];
+            $pincode = $_GET["pincode"];
 
-                        if (!$contactResult) {
-                            die("Error in SQL query for contact_details: " . pg_last_error());
-                        }
+            $addressQuery = "INSERT INTO addresses (voter_id, district, address, pincode) VALUES (:voterId, :district, :address, :pincode)";
+            $addressStmt = $conn->prepare($addressQuery);
+            $addressStmt->execute([':voterId' => $voterId, ':district' => $district, ':address' => $address, ':pincode' => $pincode]);
 
-                        // Insert data into addresses table
-                        $district = $_GET["district"];
-                        $address = $_GET["address"];
-                        $pincode = $_GET["pincode"];
+            $conn->commit();
 
-                        $addressQuery = "INSERT INTO addresses (voter_id, district, address, pincode) VALUES ($voterId, '$district', '$address', '$pincode')";
-                        $addressResult = pg_query($conn, $addressQuery);
+            echo "Registration successful!";
+        } catch (Exception $e) {
+            $conn->rollBack();
+            die("Error: " . $e->getMessage());
+        }
+    } else {
+        // Display validation errors
+        foreach ($validationErrors as $error) {
+            echo $error . "<br>";
+        }
+    }
+}
 
-                        if (!$addressResult) {
-                            die("Error in SQL query for addresses: " . pg_last_error());
-                        }
+function validateForm($data) {
+    $errors = [];
 
-                        echo "Registration successful!";
-                    } else {
-                        // Display validation errors
-                        foreach ($validationErrors as $error) {
-                            echo $error . "<br>";
-                        }
-                    }
-                }
+    if (empty($data['firstName'])) {
+        $errors[] = "First name is required.";
+    }
 
-                function validateForm($data) {
-                    $errors = [];
+    if (empty($data['lastName'])) {
+        $errors[] = "Last name is required.";
+    }
 
-                    if (empty($data['firstName'])) {
-                        $errors[] = "First name is required.";
-                    }
+    if (empty($data['dob'])) {
+        $errors[] = "Date of birth is required.";
+    } elseif (!preg_match("/^\d{4}-\d{2}-\d{2}$/", $data['dob'])) {
+        $errors[] = "Invalid date of birth format. Use YYYY-MM-DD.";
+    }
 
-                    if (empty($data['lastName'])) {
-                        $errors[] = "Last name is required.";
-                    }
+    if (empty($data['age'])) {
+        $errors[] = "Age is required.";
+    } elseif (!ctype_digit($data['age'])) {
+        $errors[] = "Age must be a positive integer.";
+    }
 
-                    if (empty($data['dob'])) {
-                        $errors[] = "Date of birth is required.";
-                    } elseif (!preg_match("/^\d{4}-\d{2}-\d{2}$/", $data['dob'])) {
-                        $errors[] = "Invalid date of birth format. Use YYYY-MM-DD.";
-                    }
+    if (empty($data['gender'])) {
+        $errors[] = "Gender is required.";
+    }
 
-                    if (empty($data['age'])) {
-                        $errors[] = "Age is required.";
-                    } elseif (!ctype_digit($data['age'])) {
-                        $errors[] = "Age must be a positive integer.";
-                    }
+    if (empty($data['email'])) {
+        $errors[] = "Email is required.";
+    } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Invalid email address.";
+    }
 
-                    if (empty($data['gender'])) {
-                        $errors[] = "Gender is required.";
-                    }
+    if (empty($data['phone'])) {
+        $errors[] = "Phone number is required.";
+    } elseif (!preg_match("/^\d{10}$/", $data['phone'])) {
+        $errors[] = "Invalid phone number format. Use 10 digits.";
+    }
 
-                    if (empty($data['email'])) {
-                        $errors[] = "Email is required.";
-                    } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-                        $errors[] = "Invalid email address.";
-                    }
+    if (empty($data['district'])) {
+        $errors[] = "District is required.";
+    }
 
-                    if (empty($data['phone'])) {
-                        $errors[] = "Phone number is required.";
-                    } elseif (!preg_match("/^\d{10}$/", $data['phone'])) {
-                        $errors[] = "Invalid phone number format. Use 10 digits.";
-                    }
+    if (empty($data['address'])) {
+        $errors[] = "Address is required.";
+    }
 
-                    if (empty($data['district'])) {
-                        $errors[] = "District is required.";
-                    }
+    if (empty($data['pincode'])) {
+        $errors[] = "Pincode is required.";
+    } elseif (!ctype_digit($data['pincode']) || strlen($data['pincode']) !== 6) {
+        $errors[] = "Invalid pincode format. Use 6 digits.";
+    }
 
-                    if (empty($data['address'])) {
-                        $errors[] = "Address is required.";
-                    }
+    return $errors;
+}
 
-                    if (empty($data['pincode'])) {
-                        $errors[] = "Pincode is required.";
-                    } elseif (!ctype_digit($data['pincode']) || strlen($data['pincode']) !== 6) {
-                        $errors[] = "Invalid pincode format. Use 6 digits.";
-                    }
+$conn = null;
+?>
 
-                    return $errors;
-                }
-
-                pg_close($conn);
-                ?>
 
 
             </div>
