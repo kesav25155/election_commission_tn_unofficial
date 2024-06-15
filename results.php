@@ -1,26 +1,4 @@
 <?php
-// Function to display candidate information
-function displayCandidateInfo($pdo, $candidate_id) {
-    // Prepare SQL query to fetch candidate information
-    $sql = "SELECT candidate_name, candidate_party, votes_received, percentage FROM candidates WHERE candidate_id = :id";
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':id', $candidate_id);
-    $stmt->execute();
-    $candidate = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    // Check if candidate exists
-    if ($candidate) {
-        // Output candidate information
-        echo "<td>" . $candidate['candidate_name'] . "</td>";
-        echo "<td>" . $candidate['candidate_party'] . "</td>";
-        echo "<td>" . $candidate['votes_received'] . "</td>";
-        echo "<td>" . $candidate['percentage'] . "</td>";
-    } else {
-        // Output placeholder if candidate not found
-        echo "<td colspan='4'>Candidate not found</td>";
-    }
-}
-
 // Initialize $results as an empty array
 $results = [];
 
@@ -40,9 +18,9 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Build the SQL query based on selected constituency
-    $sql = "SELECT * FROM election_results WHERE 1=0"; // Initially no results
+    $sql = "SELECT * FROM election_results";
     if (!empty($selectedConstituency)) {
-        $sql .= " OR constituency_id IN (SELECT constituency_id FROM constituencies WHERE assembly_constituency=:constituency)";
+        $sql .= " WHERE constituency_id IN (SELECT constituency_id FROM constituencies WHERE assembly_constituency=:constituency)";
     }
 
     // Prepare and execute the SQL query
@@ -60,18 +38,7 @@ try {
     die();
 }
 ?>
-   
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Election Results</title>
-
-</head>
- <style>
+    <style>
      * {
                 margin: 0;
                 padding: 0;
@@ -390,6 +357,17 @@ try {
                     font-size: 14px;
                 }
         </style>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election Results</title>
+
+</head>
+
 <body>
 <header>
         <br>
@@ -686,71 +664,122 @@ for (var district in constituenciesData) {
     }
 }
     </script>
-        <section>
-            <h2>Results Table</h2>
-            <div class="table-container">
-                <div class="table-scroll">
-                    <table>
-                        <!-- Table headers remain the same -->
-                        <thead>
-                            <tr>
-                                <th>Assembly Constituency</th>
-                                <th>Turnout Percentage</th>
-                                <th>Winner Name</th>
-                                <th>Winner Party</th>
-                                <th>Winner Votes</th>
-                                <th>Winner Percentage</th>
-                                <th>Runner-Up Name</th>
-                                <th>Runner-Up Party</th>
-                                <th>Runner-Up Votes</th>
-                                <th>Runner-Up Percentage</th>
-                                <th>Margin</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            if ($results) {
-                                foreach ($results as $result) {
-                                    echo "<tr>";
-                                    // Display assembly constituency and turnout percentage
-                                    echo "<td>" . $result['assembly_constituency'] . "</td>";
-                                    echo "<td>" . $result['turnout_percentage'] . "</td>";
+<section>
+    <h2>Results Table</h2>
+    <div class="table-container">
+        <div class="table-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Assembly Constituency</th>
+                        <th>Turnout Percentage</th>
+                        <th>Winner Name</th>
+                        <th>Winner Party</th>
+                        <th>Winner Votes</th>
+                        <th>Winner Percentage</th>
+                        <th>Runner-Up Name</th>
+                        <th>Runner-Up Party</th>
+                        <th>Runner-Up Votes</th>
+                        <th>Runner-Up Percentage</th>
+                        <th>Margin</th>
+                    </tr>
+                </thead>
+                <tbody>
+        <?php
+                    error_reporting(E_ALL);
+                    ini_set('display_errors', 1);
 
-                                    // Winner
-                                    echo "<td>";
-                                    displayCandidateInfo($pdo, $result['winner_id']);
-                                    echo "</td>";
+                    if ($results) {
+                        foreach ($results as $result) {
+                            echo "<tr>";
+                            $assemblyQuery = "SELECT assembly_constituency FROM constituencies WHERE constituency_id = :constituency_id";
+                            $assemblyStmt = $pdo->prepare($assemblyQuery);
+        $assemblyStmt->bindParam(':constituency_id', $result['constituency_id']);
+        $assemblyStmt->execute();
+        $assemblyResult = $assemblyStmt->fetch(PDO::FETCH_ASSOC);
+        $assemblyConstituency = (!empty($assemblyResult) && isset($assemblyResult['assembly_constituency'])) ? $assemblyResult['assembly_constituency'] : "Assembly Constituency not found";
 
-                                    // Winner Party, Votes, Percentage
-                                    echo "<td>" . $result['winner_party'] . "</td>";
-                                    echo "<td>" . $result['winner_votes'] . "</td>";
-                                    echo "<td>" . $result['winner_percentage'] . "</td>";
+        echo "<td>" . $assemblyConstituency . "</td>";
+                            
+                            echo "<td>" . $result['turnout_percentage'] . "</td>";
 
-                                    // Runner-Up
-                                    echo "<td>";
-                                    displayCandidateInfo($pdo, $result['runner_up_id']);
-                                    echo "</td>";
+                            // Winner
+                            displayCandidateInfo($pdo, $result['winner_id']);
 
-                                    // Runner-Up Party, Votes, Percentage
-                                    echo "<td>" . $result['runner_up_party'] . "</td>";
-                                    echo "<td>" . $result['runner_up_votes'] . "</td>";
-                                    echo "<td>" . $result['runner_up_percentage'] . "</td>";
+                            // Runner-Up
+                            displayCandidateInfo($pdo, $result['runner_up_id']);
 
-                                    // Margin
-                                    echo "<td>" . $result['margin'] . "</td>";
+                            echo "<td>" . $result['margin'] . "</td>";
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='11'>No results found.</td></tr>";
+                    }
 
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='11'>No results found.</td></tr>";
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
+                    function displayCandidateInfo($pdo, $candidateId) {
+                        $partyQuery = "
+                        SELECT Party.PartyName
+                        FROM Party
+                        WHERE Party.PartyID = (
+                            SELECT candidates.party_id
+                            FROM candidates
+                            WHERE candidates.candidate_id = :candidate_id
+                        );
+                        
+    ";
 
+    $candidateNameQuery = "SELECT candidate_name FROM candidates WHERE candidate_id = :candidate_id";
+$votesQuery = "SELECT votes FROM candidates WHERE candidate_id = :candidate_id";
+$percentageQuery = "SELECT percentage FROM candidates WHERE candidate_id = :candidate_id";
+
+
+try {
+    // Execute the party query with the candidate_id parameter
+    $partyStmt = $pdo->prepare($partyQuery);
+    $partyStmt->bindParam(':candidate_id', $candidateId);
+    $partyStmt->execute();
+
+   
+
+    $partyResult = $partyStmt->fetch(PDO::FETCH_ASSOC);
+
+    
+
+    if (!empty($partyResult) && isset($partyResult['partyname'])) {
+        $party = $partyResult['partyname'];
+    } else {
+        $party = "Party information not available";
+    }
+
+                        // Execute other queries with the candidate_id parameter
+                        $nameStmt = $pdo->prepare($candidateNameQuery);
+                        $nameStmt->bindParam(':candidate_id', $candidateId);
+                        $nameStmt->execute();
+                        $candidateName = $nameStmt->fetch(PDO::FETCH_ASSOC)['candidate_name'];
+                        // (Your existing code for candidateName, votes, and percentage)
+                        $votesStmt = $pdo->prepare($votesQuery);
+                        $votesStmt->bindParam(':candidate_id', $candidateId);
+                        $votesStmt->execute();
+                        $votes = $votesStmt->fetch(PDO::FETCH_ASSOC)['votes'];
+                    
+                        $percentageStmt = $pdo->prepare($percentageQuery);
+                        $percentageStmt->bindParam(':candidate_id', $candidateId);
+                        $percentageStmt->execute();
+                        $percentage = $percentageStmt->fetch(PDO::FETCH_ASSOC)['percentage'];
+                    
+                        echo "<td>$candidateName</td>";
+                        echo "<td>$party</td>";
+                        echo "<td>$votes</td>";
+                        echo "<td>$percentage</td>";
+                    } catch (PDOException $e) {
+                        echo "Error fetching candidate information: " . $e->getMessage();
+                    }
+                }
+                    
+                    ?>
+        </tbody>
+    </table>
+</section>
     </main>
 
 
