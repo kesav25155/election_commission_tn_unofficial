@@ -417,78 +417,77 @@ $conn = null;
 
             </div>
 <br>
-            <section>
-                <h2>Personal Details</h2>
+<section>
+    <h2>Personal Details</h2>
 
-                <div class="flex-container">
-            <div class="light-box">
-                <label for="firstName" class="required">First Name:</label>
-                <input type="text" id="firstName" name="firstName" required>
-                <span id="firstNameError" class="error-message"></span>
-            </div>
-
-            <div class="light-box">
-                <label for="lastName">Last Name:</label>
-                <input type="text" id="lastName" name="lastName" required>
-                <span id="lastNameError" class="error-message"></span>
-            </div>
+    <div class="flex-container">
+        <div class="light-box">
+            <label for="firstName" class="required">First Name:</label>
+            <input type="text" id="firstName" name="firstName" value="<?php echo isset($_GET['firstName']) ? htmlspecialchars($_GET['firstName']) : ''; ?>" required>
+            <span id="firstNameError" class="error-message"></span>
         </div>
 
-        <div class="flex-container">
-            <div class="light-box">
-                <label for="relativeName" class="required">Relative Name:</label>
-                <input type="text" id="relativeName" name="relativeName" required>
-                <span id="relativeNameError" class="error-message"></span>
-            </div>
+        <div class="light-box">
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" value="<?php echo isset($_GET['lastName']) ? htmlspecialchars($_GET['lastName']) : ''; ?>" required>
+            <span id="lastNameError" class="error-message"></span>
+        </div>
+    </div>
 
-            <div class="light-box">
-                <label for="relativeLastName">Relative Last Name:</label>
-                <input type="text" id="relativeLastName" name="relativeLastName" required>
-                <span id="relativeLastNameError" class="error-message"></span>
-            </div>
+    <div class="flex-container">
+        <div class="light-box">
+            <label for="relativeName" class="required">Relative Name:</label>
+            <input type="text" id="relativeName" name="relativeName" value="<?php echo isset($_GET['relativeName']) ? htmlspecialchars($_GET['relativeName']) : ''; ?>" required>
+            <span id="relativeNameError" class="error-message"></span>
         </div>
 
-        <div class="flex-container">
-            <div class="light-box">
-                <label for="dob" class="required">Date of Birth:</label>
-                <input type="date" id="dob" name="dob" placeholder="yyyy-mm-dd" required>
-                <span id="dobError" class="error-message"></span>
-            </div>
-                    
+        <div class="light-box">
+            <label for="relativeLastName">Relative Last Name:</label>
+            <input type="text" id="relativeLastName" name="relativeLastName" value="<?php echo isset($_GET['relativeLastName']) ? htmlspecialchars($_GET['relativeLastName']) : ''; ?>" required>
+            <span id="relativeLastNameError" class="error-message"></span>
+        </div>
+    </div>
 
-            <div class="light-box">
-                <label for="age" class="required">Age:</label>
-                <input type="number" id="age" name="age" readonly>
-                <span id="ageError" class="error-message"></span>
-            </div>
+    <div class="flex-container">
+        <div class="light-box">
+            <label for="dob" class="required">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" placeholder="yyyy-mm-dd" value="<?php echo isset($_GET['dob']) ? htmlspecialchars($_GET['dob']) : ''; ?>" required>
+            <span id="dobError" class="error-message"></span>
         </div>
 
-                <div class="light-box gender-radio">
-                    <label>Gender:</label>
-                    <label><input type="radio" name="gender" value="male"> Male</label>
-                    <label><input type="radio" name="gender" value="female"> Female</label>
-                    <label><input type="radio" name="gender" value="other"> Other</label>
-                    <span id="genderError" class="error-message"></span>
-                </div>
-            </section>
+        <div class="light-box">
+            <label for="age" class="required">Age:</label>
+            <input type="number" id="age" name="age" value="<?php echo isset($_GET['age']) ? htmlspecialchars($_GET['age']) : ''; ?>" readonly>
+            <span id="ageError" class="error-message"></span>
+        </div>
+    </div>
 
-            <section>
-                <h2>Contact Details</h2>
+    <div class="light-box gender-radio">
+        <label>Gender:</label>
+        <label><input type="radio" name="gender" value="male" <?php echo (isset($_GET['gender']) && $_GET['gender'] === 'male') ? 'checked' : ''; ?>> Male</label>
+        <label><input type="radio" name="gender" value="female" <?php echo (isset($_GET['gender']) && $_GET['gender'] === 'female') ? 'checked' : ''; ?>> Female</label>
+        <label><input type="radio" name="gender" value="other" <?php echo (isset($_GET['gender']) && $_GET['gender'] === 'other') ? 'checked' : ''; ?>> Other</label>
+        <span id="genderError" class="error-message"></span>
+    </div>
+</section>
 
-                <div class="flex-container">
-            <div class="light-box">
-                <label for="email" class="required">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <span id="emailError" class="error-message"></span>
-            </div>
+<section>
+    <h2>Contact Details</h2>
 
-            <div class="light-box">
-                <label for="phone" class="required">Phone Number:</label>
-                <input type="tel" id="phone" name="phone" required>
-                <span id="phoneError" class="error-message"></span>
-            </div>
-            </section>
+    <div class="flex-container">
+        <div class="light-box">
+            <label for="email" class="required">Email:</label>
+            <input type="email" id="email" name="email" value="<?php echo isset($_GET['email']) ? htmlspecialchars($_GET['email']) : ''; ?>" required>
+            <span id="emailError" class="error-message"></span>
+        </div>
 
+        <div class="light-box">
+            <label for="phone" class="required">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" value="<?php echo isset($_GET['phone']) ? htmlspecialchars($_GET['phone']) : ''; ?>" required>
+            <span id="phoneError" class="error-message"></span>
+        </div>
+    </div>
+</section>
 
 <section>
     <h2>Location Details</h2>
@@ -541,7 +540,9 @@ $conn = null;
 
         <div class="light-box">
             <label for="assemblyConstituency" class="required">Assembly Constituency:</label>
-            <select id="assemblyConstituency" name="assemblyConstituency"></select>
+            <select id="assemblyConstituency" name="assemblyConstituency">
+                <!-- Options will be dynamically populated based on the selected district using JavaScript -->
+            </select>
             <span id="assemblyConstituencyError" class="error-message"></span>
         </div>
     </div>
@@ -549,20 +550,17 @@ $conn = null;
     <div class="flex-container">
         <div class="light-box">
             <label for="address" class="required">Address:</label>
-            <input type="textarea" id="address" name="address" placeholder="Door No, Street, City, Taluk" required>
+            <textarea id="address" name="address" placeholder="Door No, Street, City, Taluk" required><?php echo isset($_GET['address']) ? htmlspecialchars($_GET['address']) : ''; ?></textarea>
             <span id="addressError" class="error-message"></span>
         </div>
 
         <div class="light-box">
             <label for="pincode" class="required">Pin Code:</label>
-            <input type="number" id="pincode" name="pincode" required>
+            <input type="number" id="pincode" name="pincode" value="<?php echo isset($_GET['pincode']) ? htmlspecialchars($_GET['pincode']) : ''; ?>" required>
             <span id="pincodeError" class="error-message"></span>
         </div>
     </div>
 </section>
-
-
-            </section>
 
             <div id="bottom-div">
                 <button type="submit" class="button">Register as Voter</button>
