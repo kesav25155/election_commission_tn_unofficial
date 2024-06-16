@@ -342,10 +342,20 @@ img {
         padding: 10px;
     }
 
-    .map-container {
-        width: 100%;
-        margin-bottom: 20px;
-    }
+.map-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    overflow: hidden; /* Ensure no overflow */
+}
+
+.map-container img {
+    max-width: 100%;
+    height: auto;
+}
+
 
     .contact-container {
         margin: 10px auto;
@@ -461,10 +471,10 @@ $password = 'kesavkumarj';
     <div class="qr-timer-container">
         <!-- QR code image -->
         <div>
-            <p>Scan to download our app</p><br><br>
+            <p>Scan to download our app</p><br>
             <img src="https://media.tenor.com/XDAe8PDHSIMAAAAd/downsign-qr-code.gif" alt="QR Code" class="qr-code">
             <br><br>
-            <p> qr-code currently unavailable </p>
+            <p> qr-code currently unavailable </p><br>
         </div>
         <div></div>
         <!-- Timer for upcoming election -->
@@ -476,6 +486,7 @@ $password = 'kesavkumarj';
         <div></div>
         <!-- Direction to main website -->
         <div>
+            <br>
             <p >Visit our main website</p><br>
             <a href="https://eci.gov.in/" target="_blank" style="color:cornflowerblue;">Election Commission of India</a><br><br>
         </div>
