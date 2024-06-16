@@ -5,360 +5,369 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Election Commission Of Tamil Nadu</title>
     <style>
-        /* Base styles for all devices */
-        * {
-            padding: 0;
-            margin: 0;
-            text-decoration: none;
-            list-style: none;
-            box-sizing: border-box;
-        }
+/* Base styles for all devices */
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
 
-        nav {
-            background: white;
-            height: 80px;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-        }
+nav {
+    background: white;
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
 
-        label.logo img {
-            height: 50px;
-            width: auto;
-        }
+label.logo img {
+    height: 50px;
+    width: auto;
+}
 
-        label.logo {
-            color: black;
-            font-size: 25px;
-            line-height: 80px;
-            font-weight: bold;
-        }
+label.logo {
+    color: black;
+    font-size: 25px;
+    line-height: 80px;
+    font-weight: bold;
+}
 
-        nav ul {
-            display: flex;
-            margin-right: 20px;
-        }
+nav ul {
+    display: flex;
+    margin-right: 20px;
+}
 
-        nav ul li {
-            display: inline-block;
-            line-height: 80px;
-            margin: 0 5px;
-        }
+nav ul li {
+    display: inline-block;
+    line-height: 80px;
+    margin: 0 5px;
+}
 
-        nav ul li a {
-            color: black;
-            font-size: 17px;
-            padding: 7px 13px;
-            border-radius: 3px;
-            text-transform: uppercase;
-        }
+nav ul li a {
+    color: black;
+    font-size: 17px;
+    padding: 7px 13px;
+    border-radius: 3px;
+    text-transform: uppercase;
+}
 
-        a.active, a:hover {
-            background:#041E42;
-            transition: .5s;
-            color: #f4f4f4;
-        }
+a.active, a:hover {
+    background:#041E42;
+    transition: .5s;
+    color: #f4f4f4;
+}
 
-        header {
-            background-color: white;
-            color: black;
-            text-align: left;
-            padding: 20px;
-        }
+header {
+    background-color: white;
+    color: black;
+    text-align: left;
+    padding: 20px;
+}
 
-        main {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
+main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
 
-        section {
-            background-color: #f9f9f9;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-        }
+section {
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
 
-        input, select, textarea {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin-bottom: 16px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
+input, select, textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
-        input[type="date"] {
-            padding: 10px 12px;
-        }
+input[type="date"] {
+    padding: 10px 12px;
+}
 
-        .flex-container {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
 
-        .flex-container > div {
-            flex: 1;
-            margin-right: 10px;
-        }
+.flex-container > div {
+    flex: 1;
+    margin-right: 10px;
+}
 
-        .personal-details-header {
-            text-align: left;
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #333;
-        }
+.personal-details-header {
+    text-align: left;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
 
-        .light-box {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
+.light-box {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
 
-        .gender-radio {
-            display: flex;
-            align-items: center;
-        }
+.gender-radio {
+    display: flex;
+    align-items: center;
+}
 
-        .gender-radio label {
-            margin-right: 20px;
-        }
+.gender-radio label {
+    margin-right: 20px;
+}
 
-        .gender-radio input {
-            margin-right: 5px;
-        }
+.gender-radio input {
+    margin-right: 5px;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
 
-        th, td {
-            border: 1px solid darkgray;
-            padding: 12px;
-            text-align: left;
-        }
+th, td {
+    border: 1px solid darkgray;
+    padding: 12px;
+    text-align: left;
+}
 
-        th {
-            background-color: midnightblue;
-            color: white;
-        }
+th {
+    background-color: midnightblue;
+    color: white;
+}
 
-        label.required::after {
-            content: '*';
-            color: red;
-        }
+label.required::after {
+    content: '*';
+    color: red;
+}
 
-        .bottom-container {
-            text-align: center;
-            padding: 20px;
-            background-color: #333;
-            color: white;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            border-radius: 8px 8px 0 0;
-            z-index: 10; /* Ensure it's above other content */
-        }
+.bottom-container {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-radius: 8px 8px 0 0;
+    z-index: 10; /* Ensure it's above other content */
+}
 
-        .button {
-            display: block;
-            padding: 20px;
-            background-color: #2c3968;
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 10px;
-            cursor: pointer;
-            text-align: center;
-            font-weight: 1000;
-            z-index: 11; /* Ensure it's above other content */
-        }
+.button {
+    display: block;
+    padding: 20px;
+    background-color: #2c3968;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 1000;
+    z-index: 11; /* Ensure it's above other content */
+}
 
-        .button:hover {
-            background-color: #5D76A9;
-        }
+.button:hover {
+    background-color: #5D76A9;
+}
 
-        #bottom-div {
-            background: #041E42;
-            padding: 20px;
-            color: white;
-            text-align: center;
-            position: relative;
-            bottom: 0;
-            width: calc(100% - 40px); 
-        }
+#bottom-div {
+    background: #041E42;
+    padding: 20px;
+    color: white;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: calc(100% - 40px); 
+}
 
-        .qr-timer-container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
+.qr-timer-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
 
-        .qr-code {
-            max-width: 100px;
-            max-height: 100px;
-            margin-right: 20px;
-        }
+.qr-code {
+    max-width: 100px;
+    max-height: 100px;
+    margin-right: 20px;
+}
 
-        #countdown {
-            font-size: 18px;
-            font-weight: bold;
-            margin-top: 10px;
-        }
+#countdown {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+}
 
-        #direction a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
+#direction a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
 
-        #direction a:hover {
-            text-decoration: underline;
-        }
+#direction a:hover {
+    text-decoration: underline;
+}
 
-        footer {
-            background-color: #041E42;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            border-radius: 1px;
-            margin-top: 50px;
-        }
+footer {
+    background-color: #041E42;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 1px;
+    margin-top: 50px;
+}
 
-        .mySlides {
-            display: none;
-            
-        }
+.mySlides {
+    display: none;
+}
 
-        img {
-            width: 100%;
-            height: auto;
-        }
+img {
+    width: 100%;
+    height: auto;
+}
 
-        .a {
-            background-color: white;
-        }
+.a {
+    background-color: white;
+}
 
-        #main-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-        }
+#main-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
 
-        #buttons-container {
-            display: flex;
-            justify-content: space-between; /* Ensure buttons are spaced out evenly */
-            max-width: 100%;
-            text-align: left;
-            margin-bottom: 75px;
-        }
+#buttons-container {
+    display: flex;
+    justify-content: space-between; /* Ensure buttons are spaced out evenly */
+    max-width: 100%;
+    text-align: left;
+    margin-bottom: 75px;
+}
 
-        .map-container {
-            flex: 1;
-        }
+.map-container {
+    flex: 1;
+    margin-right: 10px; /* Add margin to avoid overlap */
+}
 
-        #contact-details {
-            text-align: center;
-        }
+#contact-details {
+    text-align: center;
+}
 
-        #contact-details table {
-            margin: 0 auto;
-        }
+#contact-details table {
+    margin: 0 auto;
+}
 
-        .contact-container {
-            background-color: #f9f9f9;
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 900px;
-            margin-left: 5%;
-            display: inline-block;
-        }
+.contact-container {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 900px;
+    margin-left: 5%;
+    display: inline-block;
+}
 
-        .contact-container h3 {
-            color: #333;
-        }
+.contact-container h3 {
+    color: #333;
+}
 
-        .contact-container p {
-            margin-top: 0;
-            color: #555;
-        }
+.contact-container p {
+    margin-top: 0;
+    color: #555;
+}
 
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+    }
 
+    label.logo {
+        padding: 10px 0;
+        text-align: center;
+    }
 
-        @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                align-items: flex-start;
-                height: auto;
-            }
+    nav ul {
+        flex-direction: column;
+        width: 100%;
+    }
 
-            label.logo {
-                padding: 10px 0;
-                text-align: center;
-            }
+    nav ul li {
+        width: 100%;
+        text-align: left;
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
+    }
 
-            nav ul {
-                flex-direction: column;
-                width: 100%;
-            }
+    nav ul li a {
+        display: block;
+        width: 100%;
+        padding: 10px 20px;
+    }
 
-            nav ul li {
-                width: 100%;
-                text-align: left;
-                padding: 10px 0;
-                border-bottom: 1px solid #ddd;
-            }
+    main {
+        margin: 10px;
+        padding: 10px;
+    }
 
-            nav ul li a {
-                display: block;
-                width: 100%;
-                padding: 10px 20px;
-            }
+    .map-container {
+        width: 100%;
+        margin-bottom: 20px;
+    }
 
-            main {
-                margin: 10px;
-                padding: 10px;
-            }
+    .contact-container {
+        margin: 10px auto;
+        width: 100%;
+        max-width: 100%;
+    }
 
-            .map-container {
-                width: 100%;
-                margin-bottom: 20px;
-            }
+    #buttons-container {
+        width: 100%;
+        margin-bottom: 20px;
+        flex-direction: column;
+    }
 
-            .contact-container {
-                margin: 10px auto;
-                width: 100%;
-                max-width: 100%;
-            }
+    .bottom-container {
+        position: relative;
+        border-radius: 8px 8px 8px 8px; /* Make sure the bottom container looks good */
+    }
 
-            #buttons-container {
-                width: 100%;
-                margin-bottom: 20px;
-                flex-direction: column;
-            }
-        }
+    #bottom-div {
+        width: calc(100% - 20px); /* Adjust width for smaller screens */
+        padding: 10px;
+    }
+}
+
 
     </style>
 </head>
