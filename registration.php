@@ -362,7 +362,7 @@ function validateForm($data) {
     }
 
     if (empty($data['lastName'])) {
-        $error[] = "Last name is required.";
+        $errors[] = "Last name is required.";
     }
 
     if (empty($data['dob'])) {
