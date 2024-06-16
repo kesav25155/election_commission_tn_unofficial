@@ -18,9 +18,20 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Build the SQL query based on selected constituency
-    $sql = "SELECT * FROM election_results";
+    $sql = "
+        SELECT er.*, c.assembly_constituency, 
+               w.candidate_name AS winner_name, wp.PartyName AS winner_party, w.votes AS winner_votes, w.percentage AS winner_percentage,
+               r.candidate_name AS runner_name, rp.PartyName AS runner_party, r.votes AS runner_votes, r.percentage AS runner_percentage
+        FROM election_results er
+        JOIN constituencies c ON er.constituency_id = c.constituency_id
+        LEFT JOIN candidates w ON er.winner_id = w.candidate_id
+        LEFT JOIN Party wp ON w.party_id = wp.PartyID
+        LEFT JOIN candidates r ON er.runner_up_id = r.candidate_id
+        LEFT JOIN Party rp ON r.party_id = rp.PartyID
+    ";
+
     if (!empty($selectedConstituency)) {
-        $sql .= " WHERE constituency_id IN (SELECT constituency_id FROM constituencies WHERE assembly_constituency=:constituency)";
+        $sql .= " WHERE c.assembly_constituency = :constituency";
     }
 
     // Prepare and execute the SQL query
@@ -38,6 +49,17 @@ try {
     die();
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election Results</title>
+
+</head>
     <style>
      * {
                 margin: 0;
@@ -357,17 +379,6 @@ try {
                     font-size: 14px;
                 }
         </style>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Election Results</title>
-
-</head>
-
 <body>
 <header>
         <br>
@@ -637,155 +648,81 @@ try {
         // ... (remaining constituencies)
     ],
 };
-        var assemblyConstituencyDropdown = document.getElementById("assemblyConstituency");
+                var assemblyConstituencyDropdown = document.getElementById("assemblyConstituency");
 
-// Clear existing options
-assemblyConstituencyDropdown.innerHTML = "";
+                // Clear existing options
+                assemblyConstituencyDropdown.innerHTML = "";
 
-// Populate options directly from the constituenciesData object
-for (var district in constituenciesData) {
-    if (constituenciesData.hasOwnProperty(district)) {
-        var constituencies = constituenciesData[district];
+                // Populate options directly from the constituenciesData object
+                for (var district in constituenciesData) {
+                    if (constituenciesData.hasOwnProperty(district)) {
+                        var constituencies = constituenciesData[district];
 
-        // Add a separator option for each district
-        var separatorOption = document.createElement("option");
-        separatorOption.value = "";
-        separatorOption.text = "-------- " + district.toUpperCase() + " --------";
-        separatorOption.disabled = true;
-        assemblyConstituencyDropdown.add(separatorOption);
+                        // Add a separator option for each district
+                        var separatorOption = document.createElement("option");
+                        separatorOption.value = "";
+                        separatorOption.text = "-------- " + district.toUpperCase() + " --------";
+                        separatorOption.disabled = true;
+                        assemblyConstituencyDropdown.add(separatorOption);
 
-        // Add constituency options
-        for (var i = 1; i < constituencies.length; i++) {
-            var option = document.createElement("option");
-            option.value = constituencies[i];
-            option.text = constituencies[i];
-            assemblyConstituencyDropdown.add(option);
-        }
-    }
-}
-    </script>
-<section>
-    <h2>Results Table</h2>
-    <div class="table-container">
-        <div class="table-scroll">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Assembly Constituency</th>
-                        <th>Turnout Percentage</th>
-                        <th>Winner Name</th>
-                        <th>Winner Party</th>
-                        <th>Winner Votes</th>
-                        <th>Winner Percentage</th>
-                        <th>Runner-Up Name</th>
-                        <th>Runner-Up Party</th>
-                        <th>Runner-Up Votes</th>
-                        <th>Runner-Up Percentage</th>
-                        <th>Margin</th>
-                    </tr>
-                </thead>
-                <tbody>
-        <?php
-                    error_reporting(E_ALL);
-                    ini_set('display_errors', 1);
-
-                    if ($results) {
-                        foreach ($results as $result) {
-                            echo "<tr>";
-                            $assemblyQuery = "SELECT assembly_constituency FROM constituencies WHERE constituency_id = :constituency_id";
-                            $assemblyStmt = $pdo->prepare($assemblyQuery);
-        $assemblyStmt->bindParam(':constituency_id', $result['constituency_id']);
-        $assemblyStmt->execute();
-        $assemblyResult = $assemblyStmt->fetch(PDO::FETCH_ASSOC);
-        $assemblyConstituency = (!empty($assemblyResult) && isset($assemblyResult['assembly_constituency'])) ? $assemblyResult['assembly_constituency'] : "Assembly Constituency not found";
-
-        echo "<td>" . $assemblyConstituency . "</td>";
-                            
-                            echo "<td>" . $result['turnout_percentage'] . "</td>";
-
-                            // Winner
-                            displayCandidateInfo($pdo, $result['winner_id']);
-
-                            // Runner-Up
-                            displayCandidateInfo($pdo, $result['runner_up_id']);
-
-                            echo "<td>" . $result['margin'] . "</td>";
-                            echo "</tr>";
+                        // Add constituency options
+                        for (var i = 1; i < constituencies.length; i++) {
+                            var option = document.createElement("option");
+                            option.value = constituencies[i];
+                            option.text = constituencies[i];
+                            assemblyConstituencyDropdown.add(option);
                         }
-                    } else {
-                        echo "<tr><td colspan='11'>No results found.</td></tr>";
-                    }
-
-                    function displayCandidateInfo($pdo, $candidateId) {
-                        $partyQuery = "
-                        SELECT Party.PartyName
-                        FROM Party
-                        WHERE Party.PartyID = (
-                            SELECT candidates.party_id
-                            FROM candidates
-                            WHERE candidates.candidate_id = :candidate_id
-                        );
-                        
-    ";
-
-    $candidateNameQuery = "SELECT candidate_name FROM candidates WHERE candidate_id = :candidate_id";
-$votesQuery = "SELECT votes FROM candidates WHERE candidate_id = :candidate_id";
-$percentageQuery = "SELECT percentage FROM candidates WHERE candidate_id = :candidate_id";
-
-
-try {
-    // Execute the party query with the candidate_id parameter
-    $partyStmt = $pdo->prepare($partyQuery);
-    $partyStmt->bindParam(':candidate_id', $candidateId);
-    $partyStmt->execute();
-
-   
-
-    $partyResult = $partyStmt->fetch(PDO::FETCH_ASSOC);
-
-    
-
-    if (!empty($partyResult) && isset($partyResult['partyname'])) {
-        $party = $partyResult['partyname'];
-    } else {
-        $party = "Party information not available";
-    }
-
-                        // Execute other queries with the candidate_id parameter
-                        $nameStmt = $pdo->prepare($candidateNameQuery);
-                        $nameStmt->bindParam(':candidate_id', $candidateId);
-                        $nameStmt->execute();
-                        $candidateName = $nameStmt->fetch(PDO::FETCH_ASSOC)['candidate_name'];
-                        // (Your existing code for candidateName, votes, and percentage)
-                        $votesStmt = $pdo->prepare($votesQuery);
-                        $votesStmt->bindParam(':candidate_id', $candidateId);
-                        $votesStmt->execute();
-                        $votes = $votesStmt->fetch(PDO::FETCH_ASSOC)['votes'];
-                    
-                        $percentageStmt = $pdo->prepare($percentageQuery);
-                        $percentageStmt->bindParam(':candidate_id', $candidateId);
-                        $percentageStmt->execute();
-                        $percentage = $percentageStmt->fetch(PDO::FETCH_ASSOC)['percentage'];
-                    
-                        echo "<td>$candidateName</td>";
-                        echo "<td>$party</td>";
-                        echo "<td>$votes</td>";
-                        echo "<td>$percentage</td>";
-                    } catch (PDOException $e) {
-                        echo "Error fetching candidate information: " . $e->getMessage();
                     }
                 }
-                    
-                    ?>
-        </tbody>
-    </table>
-</section>
+            </script>
+            <section>
+                <h2>Results Table</h2>
+                <div class="table-container">
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Assembly Constituency</th>
+                                    <th>Turnout Percentage</th>
+                                    <th>Winner Name</th>
+                                    <th>Winner Party</th>
+                                    <th>Winner Votes</th>
+                                    <th>Winner Percentage</th>
+                                    <th>Runner-Up Name</th>
+                                    <th>Runner-Up Party</th>
+                                    <th>Runner-Up Votes</th>
+                                    <th>Runner-Up Percentage</th>
+                                    <th>Margin</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                if ($results) {
+                                    foreach ($results as $result) {
+                                        echo "<tr>";
+                                        echo "<td>" . htmlspecialchars($result['assembly_constituency']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($result['turnout_percentage']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($result['winner_name']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($result['winner_party']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($result['winner_votes']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($result['winner_percentage']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($result['runner_name']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($result['runner_party']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($result['runner_votes']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($result['runner_percentage']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($result['margin']) . "</td>";
+                                        echo "</tr>";
+                                    }
+                                } else {
+                                    echo "<tr><td colspan='11'>No results found.</td></tr>";
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </section>
     </main>
-
-
-            </div>
-            </div>
-    
 </body>
-
 </html>
