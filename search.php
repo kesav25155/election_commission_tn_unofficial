@@ -389,13 +389,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                         <input type="text" id="lastName" name="lastName" placeholder="Enter last name">
                     </div>
                     <div class="light-box gender-radio">
-                        <label>Gender:</label><br>
-                        
-                        <div class="gender-options">
-                            <label><input type="radio" name="gender" value="male"> Male</label>
-                            <label><input type="radio" name="gender" value="female"> Female</label>
-                            <label><input type="radio" name="gender" value="other"> Other</label>
-                        </div>
+                        Gender:<br><br>
+                            <input type="radio" name="gender" value="male"> Male<br>
+                            <input type="radio" name="gender" value="female"> Female<br>
+                            <input type="radio" name="gender" value="other"> Other<br>
                     </div>
                 </div>
             </section>
