@@ -360,6 +360,7 @@ img {
         display: block; /* Ensures the image is treated as a block element */
         margin: 0 auto; /* Center the image horizontally */
         position: relative; /* Allows fine-tuning position */
+        left: -10px;
     }
 
     .contact-container {
