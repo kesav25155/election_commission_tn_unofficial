@@ -378,7 +378,7 @@ img {
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST_DbRVDw0kkrIWPCoT9ZfCnhalRQKrHEdyXsmUoI5FMm6gFiYRTpkG3SoZrnYH5N9rD4&usqp=CAU" alt="Logo">Election Commission of TamilNadu
         </label>
         <ul>
-            <li><a href="act.html">More Options</a></li>
+            <li><a href="act.html">Our Services</a></li>
             <li><a href="About.htm">About us</a></li>
             <li><a href="contact.htm">Contact</a></li>
             <li><a href="blog.htm">Blog</a></li>
