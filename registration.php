@@ -355,7 +355,7 @@ function validateForm($data) {
     $errors = [];
 
     if (empty($data['firstName'])) {
-        $error[] = "Fill all necessary columns to register";
+        $error[] = "Fill in all necessary fields to register.";
     }
 
     if (empty($data['lastName'])) {
