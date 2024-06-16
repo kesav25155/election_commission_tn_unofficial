@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -417,7 +415,7 @@ $conn = null;
 
             </div>
 <br>
-<section>
+            <section>
                 <h2>Personal Details</h2>
 
                 <div class="flex-container">
@@ -560,6 +558,9 @@ $conn = null;
         </div>
     </div>
 </section>
+
+
+            </section>
 
             <div id="bottom-div">
                 <button type="submit" class="button">Register as Voter</button>
