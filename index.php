@@ -64,7 +64,7 @@ nav ul li a {
 }
 
 a.active, a:hover {
-    background:#041E42;
+    background: #041E42;
     transition: .5s;
     color: #f4f4f4;
 }
@@ -275,6 +275,8 @@ img {
 
 .map-container {
     flex: 1;
+    max-width: 100%; /* Ensure the map container doesn't exceed 100% width */
+    overflow: hidden; /* Prevent overflow */
     margin-right: 10px; /* Add margin to avoid overlap */
 }
 
