@@ -342,27 +342,25 @@ img {
         padding: 10px;
     }
 
-.map-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 20px;
-    overflow: hidden; /* Ensure no overflow */
-    padding: 0; /* Reset padding */
-    position: relative; /* To control absolute positioning of the image */
-}
+    .map-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 20px;
+        overflow: hidden; /* Ensure no overflow */
+        padding: 0; /* Reset padding */
+        position: relative; /* To control absolute positioning of the image */
+        height: auto; /* Ensure the height is dynamic */
+    }
 
-.map-container img {
-    max-width: 100%;
-    height: auto;
-    display: block; /* Ensures the image is treated as a block element */
-    margin: 0 auto; /* Center the image horizontally */
-    position: absolute; /* Allows fine-tuning position */
-    left: 50%;
-    transform: translateX(-50%); /* Ensure the image is centered exactly */
-}
-
+    .map-container img {
+        max-width: 100%;
+        height: auto;
+        display: block; /* Ensures the image is treated as a block element */
+        margin: 0 auto; /* Center the image horizontally */
+        position: relative; /* Allows fine-tuning position */
+    }
 
     .contact-container {
         margin: 10px auto;
@@ -378,7 +376,7 @@ img {
 
     .bottom-container {
         position: relative;
-        border-radius: 8px 8px 8px 8px; /* Make sure the bottom container looks good */
+        border-radius: 8px; /* Make sure the bottom container looks good */
     }
 
     #bottom-div {
@@ -386,6 +384,7 @@ img {
         padding: 10px;
     }
 }
+
 
 
     </style>
