@@ -176,6 +176,20 @@
             margin-right: 10px; /* Adjust as needed */
         }
 
+                .gender-radio {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .gender-radio label {
+            margin-right: 20px;
+        }
+
+        .gender-radio input {
+            margin-right: 5px;
+        }
+
         .small-button {
             display: inline-block;
             padding: 8px 15px;
@@ -376,15 +390,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                         <label for="lastName">Last Name:</label>
                         <input type="text" id="lastName" name="lastName" placeholder="Enter last name">
                     </div>
-<div class="light-box gender-radio">
-        <label>Gender:</label><br>
-        
-        <div class="gender-options">
-            <label><input type="radio" name="gender" value="male"> Male</label>
-            <label><input type="radio" name="gender" value="female"> Female</label>
-            <label><input type="radio" name="gender" value="other"> Other</label>
-        </div>
-    </div>
+                    <div class="light-box gender-radio">
+                        <label>Gender:</label>
+                        <label><input type="radio" name="gender" value="male"> Male</label>
+                        <label><input type="radio" name="gender" value="female"> Female</label>
+                        <label><input type="radio" name="gender" value="other"> Other</label>
+                    </div>
                 </div>
             </section>
 
