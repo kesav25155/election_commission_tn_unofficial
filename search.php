@@ -91,17 +91,6 @@
             flex: 1;
         }
 
-.gender-radio {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-start; /* Align items to the start */
-}
-
-.gender-radio input[type="radio"] {
-    margin-right: 5px;
-    margin-bottom: 10px; /* Add space between each radio button */
-}
 
 
         button {
