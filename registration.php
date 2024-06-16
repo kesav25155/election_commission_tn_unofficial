@@ -353,10 +353,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 function validateForm($data) {
     $errors = [];
-    $error =[];
 
     if (empty($data['firstName'])) {
-        $errors[] = "First name is required.";
+        $error[] = "Fill all necessary columns to register";
     }
 
     if (empty($data['lastName'])) {
