@@ -91,19 +91,18 @@
             flex: 1;
         }
 
-        .gender-radio {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-        }
+.gender-radio {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start; /* Align items to the start */
+}
 
-        .gender-radio label {
-            margin-right: 20px;
-        }
+.gender-radio input[type="radio"] {
+    margin-right: 5px;
+    margin-bottom: 10px; /* Add space between each radio button */
+}
 
-        .gender-radio input {
-            margin-right: 5px;
-        }
 
         button {
             background-color: #4caf50;
@@ -388,12 +387,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                         <label for="lastName">Last Name:</label>
                         <input type="text" id="lastName" name="lastName" placeholder="Enter last name">
                     </div>
-                    <div class="light-box gender-radio">
-                        Gender:<br><br>
-                            <input type="radio" name="gender" value="male"> Male<br>
-                            <input type="radio" name="gender" value="female"> Female<br>
-                            <input type="radio" name="gender" value="other"> Other<br>
-                    </div>
+<div class="light-box gender-radio">
+        <label><strong>Gender:</strong></label><br><br>
+        <input type="radio" name="gender" id="male" value="male">
+        <label for="male">Male</label><br>
+        <input type="radio" name="gender" id="female" value="female">
+        <label for="female">Female</label><br>
+        <input type="radio" name="gender" id="other" value="other">
+        <label for="other">Other</label><br>
+    </div>
                 </div>
             </section>
 
