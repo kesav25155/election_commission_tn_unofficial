@@ -342,7 +342,7 @@ img {
         padding: 10px;
     }
 
-    .map-container {
+.map-container {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -360,7 +360,7 @@ img {
         display: block; /* Ensures the image is treated as a block element */
         margin: 0 auto; /* Center the image horizontally */
         position: relative; /* Allows fine-tuning position */
-        left: -10px;
+        margin-left: -30px; /* Move the image slightly to the left */
     }
 
     .contact-container {
