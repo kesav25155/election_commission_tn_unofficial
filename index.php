@@ -349,11 +349,14 @@ img {
     width: 100%;
     margin-bottom: 20px;
     overflow: hidden; /* Ensure no overflow */
+    padding: 0; /* Reset padding */
 }
 
 .map-container img {
     max-width: 100%;
     height: auto;
+    display: block; /* Ensures the image is treated as a block element */
+    margin: 0 auto; /* Center the image horizontally */
 }
 
 
