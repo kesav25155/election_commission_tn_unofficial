@@ -282,79 +282,8 @@
     <h1>Election Commission of Tamil Nadu</h1>
 </header>
 
-        <h1>Search in Electoral Roll</h1>
-
-        <form method="GET" action="">
-        <main>
-            <section>
-                <div class="personal-details-header">Personal Details</div>
-                <div class="flex-container">
-                    <div class="light-box">
-                        <label for="firstName">First Name:</label>
-                        <input type="text" id="firstName" name="firstName" placeholder="Enter first name">
-                        <label for="lastName">Last Name:</label>
-                        <input type="text" id="lastName" name="lastName" placeholder="Enter last name">
-                    </div>
-                    <div class="light-box gender-radio">
-                        <label>Gender:</label>
-                        <label><input type="radio" name="gender" value="male"> Male</label>
-                        <label><input type="radio" name="gender" value="female"> Female</label>
-                        <label><input type="radio" name="gender" value="other"> Other</label>
-                    </div>
-                </div>
-            </section>
-
-            <section>
-                <h2>Location Details</h2>
-                <div class="flex-container">
-                    <div class="light-box">
-                        <label for="district">District:</label>
-                        <select id="district" name="district">
-                            <option value="ariyalur">Ariyalur</option>
-                            <option value="chengalpattu">Chengalpattu</option>
-                            <option value="chennai">Chennai</option>
-                            <option value="coimbatore">Coimbatore</option>
-                            <option value="cuddalore">Cuddalore</option>
-                            <option value="dharmapuri">Dharmapuri</option>
-                            <option value="dindigul">Dindigul</option>
-                            <option value="erode">Erode</option>
-                            <option value="kallakurichi">Kallakurichi</option>
-                            <option value="kanchipuram">Kanchipuram</option>
-                            <option value="kanniyakumari">Kanniyakumari</option>
-                            <option value="karur">Karur</option>
-                            <option value="krishnagiri">Krishnagiri</option>
-                            <option value="madurai">Madurai</option>
-                            <option value="nagapattinam">Nagapattinam</option>
-                            <option value="namakkal">Namakkal</option>
-                            <option value="perambalur">Perambalur</option>
-                            <option value="pudukkottai">Pudukkottai</option>
-                            <option value="ramanathapuram">Ramanathapuram</option>
-                            <option value="ranipet">Ranipet</option>
-                            <option value="salem">Salem</option>
-                            <option value="sivagangai">Sivagangai</option>
-                            <option value="tenkasi">Tenkasi</option>
-                            <option value="thanjavur">Thanjavur</option>
-                            <option value="the_nilgiris">The Nilgiris</option>
-                            <option value="theni">Theni</option>
-                            <option value="thiruvallur">Thiruvallur</option>
-                            <option value="thiruvarur">Thiruvarur</option>
-                            <option value="thoothukudi">Thoothukudi</option>
-                            <option value="tiruchirappalli">Tiruchirappalli</option>
-                            <option value="tirunelveli">Tirunelveli</option>
-                            <option value="tirupathur">Tirupathur</option>
-                            <option value="tiruppur">Tiruppur</option>
-                            <option value="trichy">Trichy</option>
-                            <option value="tuticorin">Tuticorin</option>
-                            <option value="thiruvannamalai">Thiruvannamalai</option>
-                            <option value="vellore">Vellore</option>
-                            <option value="villupuram">Villupuram</option>
-                            <option value="virudhunagar">Virudhunagar</option>
-                        </select>
-                    </div>
-                </div>
-            </section>
-        </main>
-
+        <h1>Search in Electoral Roll</h1><br>
+    
             <div class="search-results-item">
 <?php
 // Check if the form has been submitted and process the search
@@ -442,6 +371,78 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 ?>
 
             </div>
+
+
+        <form method="GET" action="">
+        <main>
+            <section>
+                <div class="personal-details-header">Personal Details</div>
+                <div class="flex-container">
+                    <div class="light-box">
+                        <label for="firstName">First Name:</label>
+                        <input type="text" id="firstName" name="firstName" placeholder="Enter first name">
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" id="lastName" name="lastName" placeholder="Enter last name">
+                    </div>
+                    <div class="light-box gender-radio">
+                        <label>Gender:</label>
+                        <label><input type="radio" name="gender" value="male"> Male</label>
+                        <label><input type="radio" name="gender" value="female"> Female</label>
+                        <label><input type="radio" name="gender" value="other"> Other</label>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Location Details</h2>
+                <div class="flex-container">
+                    <div class="light-box">
+                        <label for="district">District:</label>
+                        <select id="district" name="district">
+                            <option value="ariyalur">Ariyalur</option>
+                            <option value="chengalpattu">Chengalpattu</option>
+                            <option value="chennai">Chennai</option>
+                            <option value="coimbatore">Coimbatore</option>
+                            <option value="cuddalore">Cuddalore</option>
+                            <option value="dharmapuri">Dharmapuri</option>
+                            <option value="dindigul">Dindigul</option>
+                            <option value="erode">Erode</option>
+                            <option value="kallakurichi">Kallakurichi</option>
+                            <option value="kanchipuram">Kanchipuram</option>
+                            <option value="kanniyakumari">Kanniyakumari</option>
+                            <option value="karur">Karur</option>
+                            <option value="krishnagiri">Krishnagiri</option>
+                            <option value="madurai">Madurai</option>
+                            <option value="nagapattinam">Nagapattinam</option>
+                            <option value="namakkal">Namakkal</option>
+                            <option value="perambalur">Perambalur</option>
+                            <option value="pudukkottai">Pudukkottai</option>
+                            <option value="ramanathapuram">Ramanathapuram</option>
+                            <option value="ranipet">Ranipet</option>
+                            <option value="salem">Salem</option>
+                            <option value="sivagangai">Sivagangai</option>
+                            <option value="tenkasi">Tenkasi</option>
+                            <option value="thanjavur">Thanjavur</option>
+                            <option value="the_nilgiris">The Nilgiris</option>
+                            <option value="theni">Theni</option>
+                            <option value="thiruvallur">Thiruvallur</option>
+                            <option value="thiruvarur">Thiruvarur</option>
+                            <option value="thoothukudi">Thoothukudi</option>
+                            <option value="tiruchirappalli">Tiruchirappalli</option>
+                            <option value="tirunelveli">Tirunelveli</option>
+                            <option value="tirupathur">Tirupathur</option>
+                            <option value="tiruppur">Tiruppur</option>
+                            <option value="trichy">Trichy</option>
+                            <option value="tuticorin">Tuticorin</option>
+                            <option value="thiruvannamalai">Thiruvannamalai</option>
+                            <option value="vellore">Vellore</option>
+                            <option value="villupuram">Villupuram</option>
+                            <option value="virudhunagar">Virudhunagar</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+        </main>
 
         
         <div id="bottom-div">
