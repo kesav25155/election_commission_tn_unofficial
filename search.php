@@ -22,6 +22,10 @@
             justify-content: space-between; /* Align items to the start and end */
             align-items: center;
         }
+            .gender-options {
+        display: flex;
+        flex-direction: column;
+    }
 
         main {
             max-width: 1200px;
@@ -387,7 +391,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     <div class="light-box gender-radio">
                         <label>Gender:</label><br>
                         
-                        <div">
+                        <div class="gender-options">
                             <label><input type="radio" name="gender" value="male"> Male</label>
                             <label><input type="radio" name="gender" value="female"> Female</label>
                             <label><input type="radio" name="gender" value="other"> Other</label>
