@@ -350,6 +350,7 @@ img {
     margin-bottom: 20px;
     overflow: hidden; /* Ensure no overflow */
     padding: 0; /* Reset padding */
+    position: relative; /* To control absolute positioning of the image */
 }
 
 .map-container img {
@@ -357,6 +358,9 @@ img {
     height: auto;
     display: block; /* Ensures the image is treated as a block element */
     margin: 0 auto; /* Center the image horizontally */
+    position: absolute; /* Allows fine-tuning position */
+    left: 50%;
+    transform: translateX(-50%); /* Ensure the image is centered exactly */
 }
 
 
