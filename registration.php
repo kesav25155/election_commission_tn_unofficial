@@ -340,6 +340,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $conn->commit();
 
             echo "Registration successful!";
+            echo '<br><h2 style="color: black;">Voter ID: ' . $voterId . '</h2>';
         } catch (Exception $e) {
             $conn->rollBack();
             die("Error: " . $e->getMessage());
@@ -354,25 +355,26 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 function validateForm($data) {
     $errors = [];
+    $error =[];
 
     if (empty($data['firstName'])) {
         $errors[] = "First name is required.";
     }
 
     if (empty($data['lastName'])) {
-        $errors[] = "Last name is required.";
+        $error[] = "Last name is required.";
     }
 
     if (empty($data['dob'])) {
         $errors[] = "Date of birth is required.";
     } elseif (!preg_match("/^\d{4}-\d{2}-\d{2}$/", $data['dob'])) {
-        $errors[] = "Invalid date of birth format. Use YYYY-MM-DD.";
+        $error[] = "Invalid date of birth format. Use YYYY-MM-DD.";
     }
 
     if (empty($data['age'])) {
         $errors[] = "Age is required.";
     } elseif (!ctype_digit($data['age'])) {
-        $errors[] = "Age must be a positive integer.";
+        $error[] = "Age must be a positive integer.";
     }
 
     if (empty($data['gender'])) {
@@ -382,13 +384,13 @@ function validateForm($data) {
     if (empty($data['email'])) {
         $errors[] = "Email is required.";
     } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Invalid email address.";
+        $error[] = "Invalid email address.";
     }
 
     if (empty($data['phone'])) {
         $errors[] = "Phone number is required.";
     } elseif (!preg_match("/^\d{10}$/", $data['phone'])) {
-        $errors[] = "Invalid phone number format. Use 10 digits.";
+        $error[] = "Invalid phone number format. Use 10 digits.";
     }
 
     if (empty($data['district'])) {
@@ -402,10 +404,10 @@ function validateForm($data) {
     if (empty($data['pincode'])) {
         $errors[] = "Pincode is required.";
     } elseif (!ctype_digit($data['pincode']) || strlen($data['pincode']) !== 6) {
-        $errors[] = "Invalid pincode format. Use 6 digits.";
+        $error[] = "Invalid pincode format. Use 6 digits.";
     }
 
-    return $errors;
+    return $error;
 }
 
 $conn = null;
