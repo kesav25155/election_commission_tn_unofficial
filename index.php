@@ -277,7 +277,7 @@ img {
     flex: 1;
     max-width: 100%; /* Ensure the map container doesn't exceed 100% width */
     overflow: hidden; /* Prevent overflow */
-    margin-right: 10px; /* Add margin to avoid overlap */
+    
 }
 
 #contact-details {
@@ -461,20 +461,22 @@ $password = 'kesavkumarj';
     <div class="qr-timer-container">
         <!-- QR code image -->
         <div>
-            <p>Scan to download voter helpline</p><br>
+            <p>Scan to download our app</p><br><br>
             <img src="https://media.tenor.com/XDAe8PDHSIMAAAAd/downsign-qr-code.gif" alt="QR Code" class="qr-code">
-            <br>
+            <br><br>
             <p> qr-code currently unavailable </p>
         </div>
+        <div></div>
         <!-- Timer for upcoming election -->
         <div>
           <p>Upcoming Election</p>
+            <br>
           <p id="countdown"></p>
         </div>
-
+        <div></div>
         <!-- Direction to main website -->
         <div>
-            <p >Visit our main website</p>
+            <p >Visit our main website</p><br>
             <a href="https://eci.gov.in/" target="_blank" style="color:cornflowerblue;">Election Commission of India</a><br><br>
         </div>
         
