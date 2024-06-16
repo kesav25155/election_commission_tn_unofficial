@@ -341,26 +341,8 @@ img {
         margin: 10px;
         padding: 10px;
     }
-
-.map-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        margin-bottom: 20px;
-        overflow: hidden; /* Ensure no overflow */
-        padding: 0; /* Reset padding */
-        position: relative; /* To control absolute positioning of the image */
-        height: auto; /* Ensure the height is dynamic */
-    }
-
-    .map-container img {
-        max-width: 100%;
-        height: auto;
-        display: block; /* Ensures the image is treated as a block element */
-        margin: 0 auto; /* Center the image horizontally */
-        position: relative; /* Allows fine-tuning position */
-        margin-left: -30px; /* Move the image slightly to the left */
+    .map-container {
+        display: none; /* Hide the map container */
     }
 
     .contact-container {
